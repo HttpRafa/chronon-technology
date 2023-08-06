@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "chronontech:block/chronon_collector"
+    }
+  }
+}
