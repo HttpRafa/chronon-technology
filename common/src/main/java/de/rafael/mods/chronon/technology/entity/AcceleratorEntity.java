@@ -1,13 +1,13 @@
 package de.rafael.mods.chronon.technology.entity;
 
 import de.rafael.mods.chronon.technology.registry.ModEntities;
+import de.rafael.mods.chronon.technology.utils.Constants;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -31,8 +31,8 @@ public class AcceleratorEntity extends Entity {
 
     private static final EntityDataAccessor<Integer> tickRate = SynchedEntityData.defineId(AcceleratorEntity.class, EntityDataSerializers.INT);
 
-    private final BlockPos targetBlock;
-    private long ticksLeft;
+    private BlockPos targetBlock;
+    private int ticksLeft;
 
     public AcceleratorEntity(EntityType<? extends Entity> entityType, Level level) {
         super(entityType, level);
@@ -90,13 +90,17 @@ public class AcceleratorEntity extends Entity {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compoundTag) {
-
+    protected void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        entityData.set(tickRate, compoundTag.getInt(Constants.TICK_RATE));
+        this.ticksLeft = compoundTag.getInt(Constants.TICKS_LEFT);
+        this.targetBlock = NbtUtils.readBlockPos(compoundTag.getCompound(Constants.TARGET_BLOCK));
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compoundTag) {
-
+    protected void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        compoundTag.putInt(Constants.TICK_RATE, entityData.get(tickRate));
+        compoundTag.putInt(Constants.TICKS_LEFT, this.ticksLeft);
+        compoundTag.put(Constants.TARGET_BLOCK, NbtUtils.writeBlockPos(this.targetBlock));
     }
 
     protected boolean canAddPassenger(Entity entity) {
@@ -127,7 +131,7 @@ public class AcceleratorEntity extends Entity {
         return entityData.get(tickRate);
     }
 
-    public void extendLifetime(long time) {
+    public void extendLifetime(int time) {
         this.ticksLeft += time;
     }
 

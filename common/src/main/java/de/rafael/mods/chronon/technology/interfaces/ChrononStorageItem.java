@@ -9,9 +9,9 @@ import net.minecraft.world.item.ItemStack;
 
 public interface ChrononStorageItem {
 
-    long chronons(ItemStack itemStack);
-    void chronons(ItemStack itemStack, long amount);
+    int chronons(ItemStack itemStack);
+    void chronons(ItemStack itemStack, int amount);
 
-    void removeChronons(ItemStack itemStack, long amount);
+    void removeChronons(ItemStack itemStack, int amount);
 
 }
