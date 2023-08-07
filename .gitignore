@@ -1,8 +1,9 @@
-# Created by https://www.toptal.com/developers/gitignore/api/gradle,java,intellij
-# Edit at https://www.toptal.com/developers/gitignore?templates=gradle,java,intellij
+# Created by https://www.toptal.com/developers/gitignore/api/java,gradle,intellij,forgegradle
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,intellij,forgegradle
 
-### Run ###
-**/run/**
+### ForgeGradle ###
+# Minecraft client/server files
+run/
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -146,4 +147,4 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-# End of https://www.toptal.com/developers/gitignore/api/gradle,java,intellij
+# End of https://www.toptal.com/developers/gitignore/api/java,gradle,intellij,forgegradle

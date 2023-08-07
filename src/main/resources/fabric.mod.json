@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "chronontech",
+	"version": "${version}",
+	"name": "Chronon Technology",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"HttpRafa"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/chronontech/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"de.rafael.mods.chronon.technology.ChrononTech"
+		],
+		"client": [
+			"de.rafael.mods.chronon.technology.client.ChrononTechClient"
+		]
+	},
+	"mixins": [
+		"chronontech.mixins.json",
+		{
+			"config": "chronontech.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.22",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
