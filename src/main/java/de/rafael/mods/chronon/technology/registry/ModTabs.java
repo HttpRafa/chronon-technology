@@ -24,6 +24,11 @@ public class ModTabs {
                 output.accept(ModItems.CHRONON_CORE);
                 output.accept(ModItems.CHRONON_ACCELERATOR);
                 output.accept(ModBlocks.CHRONON_COLLECTOR);
+
+                output.accept(ModItems.IRON_PLATTING);
+                output.accept(ModItems.GOLD_PLATTING);
+                output.accept(ModItems.DIAMOND_PLATTING);
+                output.accept(ModItems.NETHERITE_PLATTING);
             }).build());
 
     private static @NotNull CreativeModeTab registerTab(String id, CreativeModeTab tab) {

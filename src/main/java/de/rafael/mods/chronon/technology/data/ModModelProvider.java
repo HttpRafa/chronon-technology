@@ -29,6 +29,11 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(@NotNull ItemModelGenerators generator) {
         generator.generateFlatItem(ModItems.CHRONON_CORE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(ModItems.CHRONON_ACCELERATOR, ModelTemplates.FLAT_ITEM);
+
+        generator.generateFlatItem(ModItems.IRON_PLATTING, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(ModItems.GOLD_PLATTING, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(ModItems.DIAMOND_PLATTING, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(ModItems.NETHERITE_PLATTING, ModelTemplates.FLAT_ITEM);
     }
 
 }

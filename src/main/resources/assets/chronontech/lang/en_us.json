@@ -2,6 +2,10 @@
   "category.chronon_technology": "Chronon Technology",
   "item.chronontech.chronon_core": "Chronon Core",
   "item.chronontech.chronon_accelerator": "Chronon Accelerator",
+  "item.chronontech.iron_platting": "Iron Platting",
+  "item.chronontech.gold_platting": "Gold Platting",
+  "item.chronontech.diamond_platting": "Diamond Platting",
+  "item.chronontech.netherite_platting": "Netherite Platting",
   "block.chronontech.chronon_collector": "Chronon Collector",
   "tooltip.storage.chronons": "Stored chronons: "
 }
