@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "chronon",
+  "key": {
+    "B": {
+      "item": "minecraft:redstone_block"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "E": {
+      "item": "chronontech:chronon_core"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "S": {
+      "item": "minecraft:observer"
+    }
+  },
+  "pattern": [
+    "OSO",
+    "REC",
+    "IBI"
+  ],
+  "result": {
+    "item": "chronontech:chronon_accelerator"
+  },
+  "show_notification": true
+}

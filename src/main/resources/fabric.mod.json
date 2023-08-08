@@ -15,6 +15,9 @@
 	"icon": "assets/chronontech/icon.png",
 	"environment": "*",
 	"entrypoints": {
+		"fabric-datagen": [
+			"de.rafael.mods.chronon.technology.data.ModDataGenerator"
+		],
 		"main": [
 			"de.rafael.mods.chronon.technology.ChrononTech"
 		],

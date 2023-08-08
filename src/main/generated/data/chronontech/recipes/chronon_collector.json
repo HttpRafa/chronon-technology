@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "chronon",
+  "key": {
+    "B": {
+      "item": "minecraft:redstone_block"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "E": {
+      "item": "chronontech:chronon_core"
+    },
+    "G": {
+      "item": "minecraft:tinted_glass"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    }
+  },
+  "pattern": [
+    "OGO",
+    "CER",
+    "OBO"
+  ],
+  "result": {
+    "item": "chronontech:chronon_collector"
+  },
+  "show_notification": true
+}

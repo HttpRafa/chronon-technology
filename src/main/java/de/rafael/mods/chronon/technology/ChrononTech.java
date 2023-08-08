@@ -1,9 +1,6 @@
 package de.rafael.mods.chronon.technology;
 
-import de.rafael.mods.chronon.technology.registry.ModBlocks;
-import de.rafael.mods.chronon.technology.registry.ModEntities;
-import de.rafael.mods.chronon.technology.registry.ModItems;
-import de.rafael.mods.chronon.technology.registry.ModTabs;
+import de.rafael.mods.chronon.technology.registry.*;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +20,8 @@ public class ChrononTech implements ModInitializer {
         ModBlocks.register();
         ModItems.register();
         ModTabs.register();
+
+        ModBlockEntities.register();
         ModEntities.register();
     }
 
