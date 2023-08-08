@@ -1,5 +1,6 @@
 package de.rafael.mods.chronon.technology.item.abstracted;
 
+import de.rafael.mods.chronon.technology.config.GuiConfig;
 import de.rafael.mods.chronon.technology.values.NbtKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -31,6 +32,21 @@ public class ChrononStorageItem extends Item {
         super.appendHoverText(itemStack, level, tooltip, tooltipFlag);
         tooltip.add(Component.translatable("tooltip.storage.chronons").withStyle(ChatFormatting.GREEN)
                 .append(Component.literal(String.valueOf(getChronons(itemStack))).withStyle(ChatFormatting.GRAY)));
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack itemStack) {
+        return true;
+    }
+
+    @Override
+    public int getBarColor(ItemStack itemStack) {
+        return GuiConfig.chrononColor;
+    }
+
+    @Override
+    public int getBarWidth(ItemStack itemStack) {
+        return Math.round(13f - 13f * (1 - (getChronons(itemStack) / (float)maxStorageSize)));
     }
 
     public int getChronons(@NotNull ItemStack itemStack) {
