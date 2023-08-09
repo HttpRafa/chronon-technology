@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-09T00:43:55.3364041	Chronon Technology/Model Definitions
+// 1.20.1	2023-08-09T03:12:26.3591531	Chronon Technology/Model Definitions
 befba931c80b5d667dd294f01c2c6ddf26d84412 assets\chronontech\models\item\iron_platting.json
 0e868eb6b1a3e68a63daa73d8df7e4d7b677ad4b assets\chronontech\models\item\chronon_accelerator.json
 e82ede136c33946c76bf2d23abb5c1fd9e19f800 assets\chronontech\models\item\diamond_platting.json
@@ -6,5 +6,5 @@ e82ede136c33946c76bf2d23abb5c1fd9e19f800 assets\chronontech\models\item\diamond_
 fb2dcfad1631deeeba0808c9ec5c966beed2abae assets\chronontech\models\item\chronon_core.json
 e35dc07755a5e23d7384a8957dc4711a93023a85 assets\chronontech\models\item\netherite_platting.json
 1a477b40ebd67757db2dd953e940bfd22aa25d13 assets\chronontech\models\item\gold_platting.json
-40e5bd9db4c5ad7522df77874624e7c332f4d54b assets\chronontech\blockstates\chronon_collector.json
 6913e7c0abf4df493eb43513c03499eadc43d759 assets\chronontech\models\block\chronon_collector.json
+40e5bd9db4c5ad7522df77874624e7c332f4d54b assets\chronontech\blockstates\chronon_collector.json

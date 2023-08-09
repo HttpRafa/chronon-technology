@@ -1,5 +1,6 @@
-package de.rafael.mods.chronon.technology.values;
+package de.rafael.mods.chronon.technology.utils.values;
 
+import de.rafael.mods.chronon.technology.ChrononTech;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,11 +10,14 @@ import lombok.Getter;
  */
 
 @Getter
-@AllArgsConstructor
 public enum NbtKeys {
 
     STORED_CHRONONS("storedChronons");
 
     private final String key;
+
+    NbtKeys(String key) {
+        this.key = ChrononTech.MOD_ID + "_" + key;
+    }
 
 }

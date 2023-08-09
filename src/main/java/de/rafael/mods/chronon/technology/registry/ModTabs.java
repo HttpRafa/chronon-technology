@@ -19,7 +19,7 @@ public class ModTabs {
 
     public static final CreativeModeTab MOD_TAB = registerTab("chronon_technology", FabricItemGroup.builder()
             .title(Component.translatable("category.chronon_technology"))
-            .icon(() -> new ItemStack(ModItems.CHRONON_ACCELERATOR))
+            .icon(() -> new ItemStack(ModBlocks.CHRONON_COLLECTOR))
             .displayItems((parameters, output) -> {
                 output.accept(ModItems.CHRONON_CORE);
                 output.accept(ModItems.CHRONON_ACCELERATOR);

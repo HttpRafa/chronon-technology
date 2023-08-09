@@ -23,6 +23,8 @@ public class ChrononTech implements ModInitializer {
 
         ModBlockEntities.register();
         ModEntities.register();
+
+        ModScreenHandlers.register();
     }
 
 }

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "chronon",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "P": {
+      "item": "chronontech:iron_platting"
+    }
+  },
+  "pattern": [
+    "BIB",
+    "IPI",
+    "BIB"
+  ],
+  "result": {
+    "item": "chronontech:gold_platting"
+  },
+  "show_notification": true
+}

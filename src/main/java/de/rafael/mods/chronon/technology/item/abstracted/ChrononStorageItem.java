@@ -1,7 +1,7 @@
 package de.rafael.mods.chronon.technology.item.abstracted;
 
 import de.rafael.mods.chronon.technology.config.GuiConfig;
-import de.rafael.mods.chronon.technology.values.NbtKeys;
+import de.rafael.mods.chronon.technology.utils.values.NbtKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -30,7 +30,7 @@ public class ChrononStorageItem extends Item {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, level, tooltip, tooltipFlag);
-        tooltip.add(Component.translatable("tooltip.storage.chronons").withStyle(ChatFormatting.GREEN)
+        tooltip.add(Component.translatable("tooltip.chronontech.storage.chronons").withStyle(ChatFormatting.GREEN)
                 .append(Component.literal(String.valueOf(getChronons(itemStack))).withStyle(ChatFormatting.GRAY)));
     }
 

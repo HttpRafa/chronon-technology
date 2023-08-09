@@ -5,6 +5,7 @@ import de.rafael.mods.chronon.technology.block.base.interfaces.Tickable;
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -27,23 +28,23 @@ public abstract class BaseMachineBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @NotNull RenderShape getRenderShape(BlockState blockState) {
-        return RenderShape.MODEL;
-    }
-
-    @Override
     public void onRemove(@NotNull BlockState blockState, Level level, BlockPos blockPos, @NotNull BlockState blockState2, boolean bl) {
         if(!blockState.is(blockState2.getBlock())) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof BaseMachineBlockEntity entity) {
                 if (level instanceof ServerLevel) {
-                    // TODO: Containers.dropContents(level, blockPos, collector);
+                    Containers.dropContents(level, blockPos, entity);
                 }
 
                 level.updateNeighbourForOutputSignal(blockPos, this);
             }
             super.onRemove(blockState, level, blockPos, blockState2, bl);
         }
+    }
+
+    @Override
+    public @NotNull RenderShape getRenderShape(BlockState blockState) {
+        return RenderShape.MODEL;
     }
 
     @Nullable
