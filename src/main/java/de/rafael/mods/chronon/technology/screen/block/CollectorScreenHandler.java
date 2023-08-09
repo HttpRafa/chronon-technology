@@ -1,8 +1,12 @@
 package de.rafael.mods.chronon.technology.screen.block;
 
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
+import de.rafael.mods.chronon.technology.item.PlattingItem;
+import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
+import de.rafael.mods.chronon.technology.registry.ModItems;
 import de.rafael.mods.chronon.technology.registry.ModScreenHandlers;
 import de.rafael.mods.chronon.technology.screen.block.base.BaseContainerMenu;
+import de.rafael.mods.chronon.technology.screen.slot.TypeLockedSlot;
 import lombok.Getter;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -35,7 +39,8 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         inventory.startOpen(inventory.player);
         this.containerData = containerData;
 
-        // TODO: Add slots
+        this.addSlot(new TypeLockedSlot(container, 0, 81, 51, PlattingItem.class));
+        this.addSlot(new TypeLockedSlot(container, 1, 153, 10, ChrononStorageItem.class));
 
         addPlayerInventory(inventory);
     }
