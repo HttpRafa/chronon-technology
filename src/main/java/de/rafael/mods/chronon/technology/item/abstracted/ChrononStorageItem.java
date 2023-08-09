@@ -20,6 +20,8 @@ import java.util.List;
 
 public class ChrononStorageItem extends Item {
 
+    public static final int CORE_MAX_STORAGE_SIZE = 1728000;
+
     private final int maxStorageSize;
 
     public ChrononStorageItem(int maxStorageSize, Properties properties) {
@@ -63,6 +65,10 @@ public class ChrononStorageItem extends Item {
 
     public void addChronons(ItemStack itemStack, int amount) {
         setChronons(itemStack, Math.min(this.maxStorageSize, getChronons(itemStack) + amount));
+    }
+
+    public int getSpaceLeft(ItemStack storageStack, int maxAmount) {
+        return Math.min(maxAmount, this.maxStorageSize - getChronons(storageStack));
     }
 
 }

@@ -39,8 +39,8 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         inventory.startOpen(inventory.player);
         this.containerData = containerData;
 
-        this.addSlot(new TypeLockedSlot(container, 0, 81, 51, PlattingItem.class));
-        this.addSlot(new TypeLockedSlot(container, 1, 153, 10, ChrononStorageItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.PLATTING_SLOT, 81, 51, PlattingItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.STORAGE_SLOT, 153, 10, ChrononStorageItem.class));
 
         addPlayerInventory(inventory);
     }

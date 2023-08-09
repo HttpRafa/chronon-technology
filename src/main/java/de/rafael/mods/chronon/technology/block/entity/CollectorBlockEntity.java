@@ -1,8 +1,12 @@
 package de.rafael.mods.chronon.technology.block.entity;
 
 import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntity;
+import de.rafael.mods.chronon.technology.item.PlattingItem;
+import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.registry.ModBlockEntities;
+import de.rafael.mods.chronon.technology.registry.ModItems;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
+import de.rafael.mods.chronon.technology.types.PlattingType;
 import de.rafael.mods.chronon.technology.utils.helper.CompactContainerData;
 import de.rafael.mods.chronon.technology.utils.values.NbtKeys;
 import lombok.Getter;
@@ -32,6 +36,11 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     public static final int INVENTORY_SIZE = 2;
     public static final int SYNC_AMOUNT = 2;
 
+    public static final int PLATTING_SLOT = 0;
+    public static final int STORAGE_SLOT = 1;
+
+    public static final int MAX_STORAGE_SIZE = ChrononStorageItem.CORE_MAX_STORAGE_SIZE * 2;
+
     private final ContainerData containerData;
 
     private int storedChronons = 0;
@@ -60,9 +69,32 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
         };
     }
 
+    private int nextTick = 0;
     @Override
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        // TODO: Do collector magic
+        if(nextTick > 0) {
+            nextTick--;
+            return;
+        }
+
+        boolean markChanged = false;
+
+        var plattingStack = getItem(PLATTING_SLOT);
+        if(!plattingStack.isEmpty() && plattingStack.getItem() instanceof PlattingItem item) {
+            if(item.getPlattingType() == PlattingType.IRON) nextTick = 1;
+            this.storedChronons += Math.min(MAX_STORAGE_SIZE, Math.round(item.getPlattingType().getEfficiency()));
+            markChanged = true;
+        }
+
+        var storageStack = getItem(STORAGE_SLOT);
+        if(!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
+            int amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
+            item.addChronons(storageStack, amount);
+            this.storedChronons -= amount;
+            markChanged = true;
+        }
+
+        if(markChanged) setChanged(level, blockPos, blockState);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ModItems {
 
     /* Core */
     public static final Item CHRONON_CORE = registerItem("chronon_core",
-            new ChrononStorageItem(1728000, new Item.Properties()));
+            new ChrononStorageItem(ChrononStorageItem.CORE_MAX_STORAGE_SIZE, new Item.Properties()));
     public static final Item CHRONON_ACCELERATOR = registerItem("chronon_accelerator",
             new AcceleratorItem());
 
