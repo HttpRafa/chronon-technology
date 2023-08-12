@@ -22,7 +22,7 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-        generator.createTrivialCube(ModBlocks.CHRONON_COLLECTOR);
+        // generator.createTrivialCube(ModBlocks.CHRONON_COLLECTOR);
     }
 
     @Override

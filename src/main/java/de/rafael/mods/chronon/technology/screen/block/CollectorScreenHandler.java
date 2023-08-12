@@ -25,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 @Getter
 public class CollectorScreenHandler extends BaseContainerMenu {
 
+    public static final int BAR_SIZE = 26;
+
     private final Container container;
     private final ContainerData containerData;
 
@@ -43,6 +45,15 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.STORAGE_SLOT, 153, 10, ChrononStorageItem.class));
 
         addPlayerInventory(inventory);
+    }
+
+    public boolean isCollecting() {
+        return this.containerData.get(CollectorBlockEntity.PROGRESS_SYNC_ID) > 0;
+    }
+
+    public int scaledBarSize() {
+        int chronons = this.containerData.get(CollectorBlockEntity.STORED_CHRONONS_SYNC_ID);
+        return chronons != 0 ? chronons * BAR_SIZE / CollectorBlockEntity.MAX_STORAGE_SIZE : 0;
     }
 
     @Override

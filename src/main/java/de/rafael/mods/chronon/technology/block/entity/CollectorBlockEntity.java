@@ -34,7 +34,10 @@ import org.jetbrains.annotations.Nullable;
 public class CollectorBlockEntity extends BaseMachineBlockEntity {
 
     public static final int INVENTORY_SIZE = 2;
+
     public static final int SYNC_AMOUNT = 2;
+    public static final int PROGRESS_SYNC_ID = 0;
+    public static final int STORED_CHRONONS_SYNC_ID = 1;
 
     public static final int PLATTING_SLOT = 0;
     public static final int STORAGE_SLOT = 1;
@@ -53,8 +56,8 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
             @Override
             public int get(int i) {
                 return switch (i) {
-                    case 0 -> progress;
-                    case 1 -> storedChronons;
+                    case PROGRESS_SYNC_ID -> progress;
+                    case STORED_CHRONONS_SYNC_ID -> storedChronons;
                     default -> 0;
                 };
             }
@@ -62,8 +65,8 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
             @Override
             public void set(int i, int value) {
                 switch (i) {
-                    case 0 -> progress = value;
-                    case 1 -> storedChronons = value;
+                    case PROGRESS_SYNC_ID -> progress = value;
+                    case STORED_CHRONONS_SYNC_ID -> storedChronons = value;
                 }
             }
         };
