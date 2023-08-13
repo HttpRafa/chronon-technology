@@ -27,7 +27,7 @@ public class TypeLockedSlot extends Slot {
 
     @Override
     public boolean mayPlace(@NotNull ItemStack itemStack) {
-        return Arrays.stream(items).anyMatch(item -> item.isAssignableFrom(itemStack.getClass()));
+        return Arrays.stream(items).anyMatch(item -> itemStack.getItem().getClass().isAssignableFrom(item));
     }
 
 }

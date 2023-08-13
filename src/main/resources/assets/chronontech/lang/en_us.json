@@ -7,7 +7,8 @@
   "item.chronontech.diamond_platting": "Diamond Platting",
   "item.chronontech.netherite_platting": "Netherite Platting",
   "block.chronontech.chronon_collector": "Chronon Collector",
-  "tooltip.chronontech.storage.chronons": "Stored chronons: ",
+  "tooltip.chronontech.storage.storedTime": "Stored time: ",
   "tooltip.chronontech.platting.efficiency": "Platting efficiency: ",
-  "screen.chronontech.collector": "Chronon Collector"
+  "screen.chronontech.collector": "Chronon Collector",
+  "tooltip.chronontech.storage.description": "To charge this item, insert it into an chronon collector"
 }

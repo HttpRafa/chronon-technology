@@ -13,15 +13,9 @@ public abstract class CompactContainerData implements ContainerData {
 
     private final int amount;
 
-    @Override
-    public int get(int i) {
-        return 0;
-    }
+    public abstract int get(int i);
 
-    @Override
-    public void set(int i, int j) {
-
-    }
+    public abstract void set(int i, int j);
 
     @Override
     public int getCount() {

@@ -24,7 +24,7 @@ public class PlattingItem extends Item {
     private final PlattingType plattingType;
 
     public PlattingItem(@NotNull PlattingType plattingType) {
-        super(plattingType == PlattingType.NETHERITE ? new Item.Properties().rarity(plattingType.getRarity()).fireResistant() : new Item.Properties().rarity(plattingType.getRarity()));
+        super(plattingType == PlattingType.NETHERITE ? new Item.Properties().rarity(plattingType.getRarity()).stacksTo(1).fireResistant() : new Item.Properties().rarity(plattingType.getRarity()).stacksTo(1));
         this.plattingType = plattingType;
     }
 

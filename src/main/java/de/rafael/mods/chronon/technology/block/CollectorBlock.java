@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 public class CollectorBlock extends BaseMachineBlock {
 
     public CollectorBlock() {
-        super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK));
+        super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion());
     }
 
     @Override

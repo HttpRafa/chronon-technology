@@ -20,7 +20,7 @@ public class ModItems {
 
     /* Core */
     public static final Item CHRONON_CORE = registerItem("chronon_core",
-            new ChrononStorageItem(ChrononStorageItem.CORE_MAX_STORAGE_SIZE, new Item.Properties()));
+            new ChrononStorageItem(ChrononStorageItem.CORE_MAX_STORAGE_SIZE, new Item.Properties().stacksTo(1)));
     public static final Item CHRONON_ACCELERATOR = registerItem("chronon_accelerator",
             new AcceleratorItem());
 
@@ -33,6 +33,9 @@ public class ModItems {
             new PlattingItem(PlattingType.DIAMOND));
     public static final Item NETHERITE_PLATTING = registerItem("netherite_platting",
             new PlattingItem(PlattingType.NETHERITE));
+
+    public static final Item DEBUG_PLATTING = registerItem("debug_platting",
+            new PlattingItem(PlattingType.DEBUG));
 
     private static @NotNull Item registerItem(String id, Item item) {
         return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(ChrononTech.MOD_ID, id), item);

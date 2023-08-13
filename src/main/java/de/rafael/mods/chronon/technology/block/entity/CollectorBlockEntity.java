@@ -4,7 +4,6 @@ import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntit
 import de.rafael.mods.chronon.technology.item.PlattingItem;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.registry.ModBlockEntities;
-import de.rafael.mods.chronon.technology.registry.ModItems;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
 import de.rafael.mods.chronon.technology.types.PlattingType;
 import de.rafael.mods.chronon.technology.utils.helper.CompactContainerData;
@@ -72,21 +71,22 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
         };
     }
 
-    private int nextTick = 0;
+    private int ticks = 0;
     @Override
-    public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if(nextTick > 0) {
-            nextTick--;
-            return;
-        }
-
-        boolean markChanged = false;
+    public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
+        if(level.isClientSide()) return;
 
         var plattingStack = getItem(PLATTING_SLOT);
         if(!plattingStack.isEmpty() && plattingStack.getItem() instanceof PlattingItem item) {
-            if(item.getPlattingType() == PlattingType.IRON) nextTick = 1;
-            this.storedChronons += Math.min(MAX_STORAGE_SIZE, Math.round(item.getPlattingType().getEfficiency()));
-            markChanged = true;
+            ticks++;
+            if(item.getPlattingType().getEfficiency() > 20f) {
+                this.storedChronons = MAX_STORAGE_SIZE;
+                this.ticks = 0;
+            } else if(ticks >= item.getPlattingType().getTicksPerChronon()) {
+                this.ticks = 0;
+                this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
+            }
+            setChanged(level, blockPos, blockState);
         }
 
         var storageStack = getItem(STORAGE_SLOT);
@@ -94,28 +94,25 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
             int amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
             item.addChronons(storageStack, amount);
             this.storedChronons -= amount;
-            markChanged = true;
+            setChanged(level, blockPos, blockState);
         }
-
-        if(markChanged) setChanged(level, blockPos, blockState);
     }
 
     @Override
     public int @NotNull [] getSlotsForFace(Direction direction) {
-        return new int[] {0, 1}; // TODO: Do hopper magic
+        return new int[0];
     }
 
     @Override
     public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction direction) {
-        return true; // TODO: Do hopper magic
+        return false;
     }
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
-        return true; // TODO: Do hopper magic
+        return false;
     }
 
-    @Nullable
     @Override
     public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
         return new CollectorScreenHandler(syncId, inventory, this, this.containerData);

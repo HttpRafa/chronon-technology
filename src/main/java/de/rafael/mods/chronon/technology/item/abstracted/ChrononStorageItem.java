@@ -1,6 +1,7 @@
 package de.rafael.mods.chronon.technology.item.abstracted;
 
 import de.rafael.mods.chronon.technology.config.GuiConfig;
+import de.rafael.mods.chronon.technology.utils.helper.TimeHelper;
 import de.rafael.mods.chronon.technology.utils.values.NbtKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -18,22 +19,25 @@ import java.util.List;
  * @since 07/08/2023
  */
 
-public class ChrononStorageItem extends Item {
+public class ChrononStorageItem extends ItemWithDescription {
 
-    public static final int CORE_MAX_STORAGE_SIZE = 1728000;
+    public static final int CORE_MAX_STORAGE_SIZE = 86400;
 
     private final int maxStorageSize;
 
     public ChrononStorageItem(int maxStorageSize, Properties properties) {
-        super(properties);
+        super(properties, Component.literal("► ").withStyle(ChatFormatting.DARK_GRAY).append(Component.translatable("tooltip.chronontech.storage.description").withStyle(ChatFormatting.GRAY)));
         this.maxStorageSize = maxStorageSize;
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable Level level, @NotNull List<Component> tooltip, TooltipFlag tooltipFlag) {
+        tooltip.add(Component.translatable("tooltip.chronontech.storage.storedTime")
+                .withStyle(ChatFormatting.GREEN).append(Component.literal(TimeHelper
+                                .formatTime(TimeHelper
+                                        .millisFromChronons(getChronons(itemStack))))
+                        .withStyle(ChatFormatting.GRAY)));
         super.appendHoverText(itemStack, level, tooltip, tooltipFlag);
-        tooltip.add(Component.translatable("tooltip.chronontech.storage.chronons").withStyle(ChatFormatting.GREEN)
-                .append(Component.literal(String.valueOf(getChronons(itemStack))).withStyle(ChatFormatting.GRAY)));
     }
 
     @Override

@@ -17,16 +17,16 @@ public abstract class BaseContainerMenu extends AbstractContainerMenu {
         super(menuType, syncId);
     }
 
-    protected void addPlayerInventory(Inventory inventory) {
+    protected void addPlayerInventory(Inventory inventory, int hotbarY, int inventoryY) {
         // Normal inventory
         for(int j = 0; j < 3; ++j) {
             for(int k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(inventory, k + j * 9 + 9, 8 + k * 18, 84 + j * 18));
+                this.addSlot(new Slot(inventory, k + j * 9 + 9, 8 + k * 18, inventoryY + j * 18));
             }
         }
         // Hotbar
         for(int j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
+            this.addSlot(new Slot(inventory, j, 8 + j * 18, hotbarY));
         }
     }
 
