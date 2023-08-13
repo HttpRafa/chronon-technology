@@ -5,6 +5,8 @@ import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.utils.values.Constants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -52,6 +54,7 @@ public class AcceleratorItem extends ChrononStorageItem {
             accelerator.setTicksLeft(accelerator.getTicksLeft() + ticks);
 
             removeChronons(useOnContext.getItemInHand(), cost);
+            playSound(level, blockPos, rate);
         }, () -> {
             int cost = player.isCreative() ? 0 : (Constants.Numbers.BOOST_TIME / 20);
             if(cost > getChronons(useOnContext.getItemInHand())) return;
@@ -62,9 +65,14 @@ public class AcceleratorItem extends ChrononStorageItem {
             level.addFreshEntity(accelerator);
 
             removeChronons(useOnContext.getItemInHand(), cost);
+            playSound(level, blockPos, 2);
         });
 
         return InteractionResult.SUCCESS;
+    }
+
+    private void playSound(@NotNull Level level, BlockPos blockPos, int rate) {
+        level.playSound(null, blockPos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS, 0.5f, Constants.Sounds.SOUND_SUPPLIER.apply(rate));
     }
 
 }
