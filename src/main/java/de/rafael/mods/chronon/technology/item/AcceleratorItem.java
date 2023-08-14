@@ -1,5 +1,6 @@
 package de.rafael.mods.chronon.technology.item;
 
+import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.entity.AcceleratorEntity;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.utils.values.Constants;
@@ -41,10 +42,10 @@ public class AcceleratorItem extends ChrononStorageItem {
         // Check if accelerator already exists
         level.getEntitiesOfClass(AcceleratorEntity.class, new AABB(blockPos)).stream().findFirst().ifPresentOrElse(accelerator -> {
             int rate = accelerator.getTickRate();
-            int ticks = Constants.Numbers.BOOST_TIME - accelerator.getTicksLeft();
+            int ticks = AcceleratorConfig.boostTime - accelerator.getTicksLeft();
 
             // Check if rate is at maximum
-            if(rate >= Math.pow(2, Constants.Numbers.MAX_TICK_RATE)) return;
+            if(rate >= Math.pow(2, AcceleratorConfig.maxTickRate)) return;
 
             rate = rate * 2; // Increment current rate
             ticks = ticks / 2; // Add additional ticks to the old time
@@ -56,11 +57,11 @@ public class AcceleratorItem extends ChrononStorageItem {
             removeChronons(useOnContext.getItemInHand(), cost);
             playSound(level, blockPos, rate);
         }, () -> {
-            int cost = player.isCreative() ? 0 : (Constants.Numbers.BOOST_TIME / 20);
+            int cost = player.isCreative() ? 0 : (AcceleratorConfig.boostTime / 20);
             if(cost > getChronons(useOnContext.getItemInHand())) return;
 
             AcceleratorEntity accelerator = new AcceleratorEntity(level, blockPos);
-            accelerator.setTicksLeft(Constants.Numbers.BOOST_TIME);
+            accelerator.setTicksLeft(AcceleratorConfig.boostTime);
             accelerator.setTickRate(2);
             level.addFreshEntity(accelerator);
 
