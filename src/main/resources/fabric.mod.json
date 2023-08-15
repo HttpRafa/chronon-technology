@@ -3,16 +3,16 @@
 	"id": "chronontech",
 	"version": "${version}",
 	"name": "Chronon Technology",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A mod that allows you to speed up the time for individual blocks in minecraft",
 	"authors": [
 		"HttpRafa"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/HttpRafa/chronon-technology/",
+		"sources": "https://github.com/HttpRafa/chronon-technology"
 	},
 	"license": "MIT",
-	"icon": "assets/chronontech/icon.png",
+	"icon": "assets/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"fabric-datagen": [
