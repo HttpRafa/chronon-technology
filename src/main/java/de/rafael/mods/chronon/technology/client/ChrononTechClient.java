@@ -3,6 +3,7 @@ package de.rafael.mods.chronon.technology.client;
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.client.registry.ModEntityRenderers;
 import de.rafael.mods.chronon.technology.client.registry.ModScreens;
+import de.rafael.mods.chronon.technology.config.forge.ForgeMenuConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,6 +21,8 @@ public class ChrononTechClient {
     public static void onClientSetup(FMLClientSetupEvent event) {
         ModEntityRenderers.register();
         ModScreens.register();
+
+        ForgeMenuConfig.register();
     }
 
 }

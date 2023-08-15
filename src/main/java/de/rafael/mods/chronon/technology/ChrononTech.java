@@ -1,7 +1,9 @@
 package de.rafael.mods.chronon.technology;
 
 import com.mojang.logging.LogUtils;
+import com.teamresourceful.resourcefulconfig.common.config.Configurator;
 import de.rafael.mods.chronon.technology.client.ChrononTechClient;
+import de.rafael.mods.chronon.technology.config.ChrononTechConfig;
 import de.rafael.mods.chronon.technology.registry.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -22,8 +24,11 @@ public class ChrononTech {
 
     public static final String MOD_ID = "chronontech";
     public static final Logger LOGGER = LogUtils.getLogger();
+    public static final Configurator CONFIGURATOR = new Configurator();
 
     public ChrononTech() {
+        CONFIGURATOR.registerConfig(ChrononTechConfig.class);
+
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Registry
