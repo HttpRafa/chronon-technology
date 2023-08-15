@@ -25,7 +25,6 @@ package de.rafael.mods.chronon.technology;
 
 import com.mojang.logging.LogUtils;
 import com.teamresourceful.resourcefulconfig.common.config.Configurator;
-import de.rafael.mods.chronon.technology.client.ChrononTechClient;
 import de.rafael.mods.chronon.technology.config.ChrononTechConfig;
 import de.rafael.mods.chronon.technology.registry.*;
 import net.minecraftforge.common.MinecraftForge;

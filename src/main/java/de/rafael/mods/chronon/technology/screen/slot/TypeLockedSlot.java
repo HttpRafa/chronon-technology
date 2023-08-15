@@ -25,8 +25,6 @@ package de.rafael.mods.chronon.technology.screen.slot;
 
 import java.util.Arrays;
 import lombok.Getter;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;

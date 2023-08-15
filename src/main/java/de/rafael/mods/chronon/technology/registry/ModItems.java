@@ -29,15 +29,11 @@ import de.rafael.mods.chronon.technology.item.PlatingItem;
 import de.rafael.mods.chronon.technology.item.abstracted.ItemWithDescription;
 import de.rafael.mods.chronon.technology.types.PlatingType;
 import de.rafael.mods.chronon.technology.util.values.Constants;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Rafael K.

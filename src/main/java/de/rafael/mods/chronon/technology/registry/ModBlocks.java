@@ -25,6 +25,7 @@ package de.rafael.mods.chronon.technology.registry;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.block.CollectorBlock;
+import java.util.function.Supplier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -32,8 +33,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.function.Supplier;
 
 /**
  * @author Rafael K.

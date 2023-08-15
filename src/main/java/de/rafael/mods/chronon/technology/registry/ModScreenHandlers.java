@@ -25,7 +25,7 @@ package de.rafael.mods.chronon.technology.registry;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
-import net.minecraft.world.flag.FeatureFlags;
+import java.awt.*;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -34,8 +34,6 @@ import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.awt.*;
 
 /**
  * @author Rafael K.
