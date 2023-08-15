@@ -8,6 +8,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,14 +21,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class ModEntities {
 
-    public static final EntityType<AcceleratorEntity> ACCELERATOR = registerEntity("accelerator", EntityType.Builder.<AcceleratorEntity>of(AcceleratorEntity::new, MobCategory.MISC).sized(0.1f, 0.1f));
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, ChrononTech.MOD_ID);
 
-    private static <T extends Entity> @NotNull EntityType<T> registerEntity(String id, EntityType.@NotNull Builder<T> entityType) {
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(ChrononTech.MOD_ID, id), entityType.build(id));
-    }
+    public static final RegistryObject<EntityType<AcceleratorEntity>> ACCELERATOR = ENTITIES.register("accelerator",
+            () -> EntityType.Builder.<AcceleratorEntity>of(AcceleratorEntity::new, MobCategory.MISC).sized(0.1f, 0.1f).build("accelerator"));
 
-    public static void register() {
-
+    public static void register(IEventBus eventBus) {
+        ChrononTech.LOGGER.debug("[REGISTRY] Adding entities");
+        ENTITIES.register(eventBus);
     }
 
 }

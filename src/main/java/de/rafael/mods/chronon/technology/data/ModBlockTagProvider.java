@@ -1,11 +1,15 @@
 package de.rafael.mods.chronon.technology.data;
 
+import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.registry.ModBlocks;
 import de.rafael.mods.chronon.technology.registry.ModTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -14,21 +18,21 @@ import java.util.concurrent.CompletableFuture;
  * @since 13/08/2023
  */
 
-public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+public class ModBlockTagProvider extends BlockTagsProvider {
 
-    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, ChrononTech.MOD_ID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider arg) {
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ModBlocks.CHRONON_COLLECTOR);
-        getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
-                .add(ModBlocks.CHRONON_COLLECTOR);
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(ModBlocks.CHRONON_COLLECTOR.get());
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(ModBlocks.CHRONON_COLLECTOR.get());
 
-        getOrCreateTagBuilder(ModTags.Blocks.ACCELERATION_BLACKLIST)
-                .add(ModBlocks.CHRONON_COLLECTOR);
+        tag(ModTags.Blocks.ACCELERATION_BLACKLIST)
+                .add(ModBlocks.CHRONON_COLLECTOR.get());
     }
 
 }

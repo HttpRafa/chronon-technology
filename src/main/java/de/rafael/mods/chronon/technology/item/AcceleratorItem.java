@@ -1,6 +1,5 @@
 package de.rafael.mods.chronon.technology.item;
 
-import com.terraformersmc.modmenu.util.mod.Mod;
 import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.entity.AcceleratorEntity;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
@@ -33,7 +32,7 @@ public class AcceleratorItem extends ChrononStorageItem {
     }
 
     public static @NotNull ItemStack fullyChargedStack() {
-        AcceleratorItem item = ((AcceleratorItem)ModItems.CHRONON_ACCELERATOR);
+        AcceleratorItem item = ((AcceleratorItem)ModItems.CHRONON_ACCELERATOR.get());
         ItemStack itemStack = new ItemStack(item);
         item.setChronons(itemStack, item.getMaxStorageSize());
         return itemStack;

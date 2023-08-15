@@ -5,6 +5,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -15,13 +17,13 @@ import java.util.Arrays;
  */
 
 @Getter
-public class TypeLockedSlot extends Slot {
+public class TypeLockedSlot extends SlotItemHandler {
 
     private final Class<? extends Item>[] items;
 
     @SafeVarargs
-    public TypeLockedSlot(Container container, int index, int x, int y, Class<? extends Item>... items) {
-        super(container, index, x, y);
+    public TypeLockedSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, Class<? extends Item>... items) {
+        super(itemHandler, index, xPosition, yPosition);
         this.items = items;
     }
 

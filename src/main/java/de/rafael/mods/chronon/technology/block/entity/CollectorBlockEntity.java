@@ -49,7 +49,7 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     private int progress = 0;
 
     public CollectorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.CHRONON_COLLECTOR, blockPos, blockState,
+        super(ModBlockEntities.CHRONON_COLLECTOR.get(), blockPos, blockState,
                 INVENTORY_SIZE, Component.translatable("screen.chronontech.collector"));
         this.containerData = new CompactContainerData(SYNC_AMOUNT) {
             @Override
@@ -76,7 +76,7 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
         if(level.isClientSide()) return;
 
-        var platingStack = getItem(PLATING_SLOT);
+        var platingStack = this.inventory.getStackInSlot(PLATING_SLOT);
         if(!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
             ticks++;
             if(item.getPlatingType().getEfficiency() < 0) {
@@ -89,7 +89,7 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
             setChanged(level, blockPos, blockState);
         }
 
-        var storageStack = getItem(STORAGE_SLOT);
+        var storageStack = this.inventory.getStackInSlot(STORAGE_SLOT);
         if(!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
             int amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
             item.addChronons(storageStack, amount);
@@ -99,37 +99,20 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     }
 
     @Override
-    public int @NotNull [] getSlotsForFace(Direction direction) {
-        return new int[0];
-    }
-
-    @Override
-    public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction direction) {
-        return false;
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
-        return false;
-    }
-
-    @Override
-    public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
+    public AbstractContainerMenu createMenu(int syncId, @NotNull Inventory inventory, @NotNull Player player) {
         return new CollectorScreenHandler(syncId, inventory, this, this.containerData);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag) {
-        super.saveAdditional(compoundTag);
-        ContainerHelper.saveAllItems(compoundTag, this.inventory);
-        compoundTag.putInt(NbtKeys.STORED_CHRONONS.getKey(), storedChronons);
+    protected void saveAdditional(@NotNull CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.putInt(NbtKeys.STORED_CHRONONS.getKey(), storedChronons);
     }
 
     @Override
-    public void load(CompoundTag compoundTag) {
-        super.load(compoundTag);
-        ContainerHelper.loadAllItems(compoundTag, this.inventory);
-        this.storedChronons = compoundTag.getInt(NbtKeys.STORED_CHRONONS.getKey());
+    public void load(@NotNull CompoundTag tag) {
+        super.load(tag);
+        this.storedChronons = tag.getInt(NbtKeys.STORED_CHRONONS.getKey());
     }
 
 }

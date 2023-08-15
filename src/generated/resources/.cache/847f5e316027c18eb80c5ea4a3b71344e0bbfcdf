@@ -1,0 +1,4 @@
+// 1.20.1	2023-08-15T19:41:51.9400979	Tags for minecraft:block mod id chronontech
+fd72f9ba66c88f4701f0239bfe86a963aaac12db data/chronontech/tags/blocks/blacklist/acceleration.json
+fd72f9ba66c88f4701f0239bfe86a963aaac12db data/minecraft/tags/blocks/mineable/pickaxe.json
+fd72f9ba66c88f4701f0239bfe86a963aaac12db data/minecraft/tags/blocks/needs_stone_tool.json

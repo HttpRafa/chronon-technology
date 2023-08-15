@@ -3,6 +3,7 @@ package de.rafael.mods.chronon.technology.block;
 import de.rafael.mods.chronon.technology.block.base.BaseMachineBlock;
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -13,6 +14,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
+import org.apache.logging.log4j.core.jmx.Server;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,20 +31,22 @@ public class CollectorBlock extends BaseMachineBlock {
     }
 
     @Override
-    public @NotNull InteractionResult use(BlockState blockState, @NotNull Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
         if(!level.isClientSide()) {
-            MenuProvider menuProvider = blockState.getMenuProvider(level, blockPos);
-            if(menuProvider != null) {
-                player.openMenu(menuProvider);
+            BlockEntity blockEntity = level.getBlockEntity(blockPos);
+            if(blockEntity instanceof CollectorBlockEntity entity) {
+                NetworkHooks.openScreen(((ServerPlayer) player), entity, blockPos);
+            } else {
+                throw new IllegalStateException("Container provider is missing");
             }
         }
         return InteractionResult.SUCCESS;
     }
 
-    /* Block entity */
+    // Block entity
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         return new CollectorBlockEntity(blockPos, blockState);
     }
 

@@ -1,35 +1,51 @@
 package de.rafael.mods.chronon.technology;
 
-import com.teamresourceful.resourcefulconfig.common.config.Configurator;
-import de.rafael.mods.chronon.technology.config.ChrononTechConfig;
+import com.mojang.logging.LogUtils;
+import de.rafael.mods.chronon.technology.client.ChrononTechClient;
 import de.rafael.mods.chronon.technology.registry.*;
-import net.fabricmc.api.ModInitializer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Rafael K.
- * @since 07/08/2023
+ * @since 15/08/2023
  */
 
-public class ChrononTech implements ModInitializer {
+@Mod(ChrononTech.MOD_ID)
+public class ChrononTech {
 
     public static final String MOD_ID = "chronontech";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final Configurator CONFIGURATOR = new Configurator();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
-    @Override
-    public void onInitialize() {
-        CONFIGURATOR.registerConfig(ChrononTechConfig.class);
+    public ChrononTech() {
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModBlocks.register();
-        ModItems.register();
-        ModTabs.register();
+        // Registry
+        ModTabs.register(eventBus);
+        ModItems.register(eventBus);
+        ModBlocks.register(eventBus);
+        ModEntities.register(eventBus);
+        ModBlockEntities.register(eventBus);
+        ModScreenHandlers.register(eventBus);
 
-        ModBlockEntities.register();
-        ModEntities.register();
+        // Listeners
+        eventBus.addListener(this::commonSetup);
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
-        ModScreenHandlers.register();
+    private void commonSetup(final FMLCommonSetupEvent event) {
+
+    }
+
+    @SubscribeEvent
+    public void onServerStarting(ServerStartingEvent event) {
+
     }
 
 }

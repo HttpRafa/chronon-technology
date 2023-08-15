@@ -2,14 +2,15 @@ package de.rafael.mods.chronon.technology.registry;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.block.CollectorBlock;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 /**
  * @author Rafael K.
@@ -18,17 +19,19 @@ import org.jetbrains.annotations.NotNull;
 
 public class ModBlocks {
 
-    public static final Block CHRONON_COLLECTOR = registerBlock("chronon_collector",
-            new CollectorBlock());
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ChrononTech.MOD_ID);
 
-    @Contract("_, _ -> new")
-    private static @NotNull Block registerBlock(String id, Block block) {
-        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(ChrononTech.MOD_ID, id), new BlockItem(block, new Item.Properties()));
-        return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(ChrononTech.MOD_ID, id), block);
+    public static final RegistryObject<Block> CHRONON_COLLECTOR = registerBlock("chronon_collector", CollectorBlock::new);
+
+    private static <T extends Block> RegistryObject<T> registerBlock(String id, Supplier<T> block) {
+        RegistryObject<T> registered = BLOCKS.register(id, block);
+        ModItems.ITEMS.register(id, () -> new BlockItem(registered.get(), new Item.Properties()));
+        return registered;
     }
 
-    public static void register() {
-        ChrononTech.LOGGER.info("[REGISTRY] Adding blocks");
+    public static void register(IEventBus eventBus) {
+        ChrononTech.LOGGER.debug("[REGISTRY] Adding blocks");
+        BLOCKS.register(eventBus);
     }
 
 }

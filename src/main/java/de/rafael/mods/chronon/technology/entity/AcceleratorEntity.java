@@ -50,7 +50,7 @@ public class AcceleratorEntity extends Entity {
     }
 
     public AcceleratorEntity(Level level, BlockPos blockPos) {
-        super(ModEntities.ACCELERATOR, level);
+        super(ModEntities.ACCELERATOR.get(), level);
         this.blockPos = blockPos;
         this.setPos(this.blockPos.getX() + 0.5f, this.blockPos.getY() + 0.5f, this.blockPos.getZ() + 0.5f);
     }

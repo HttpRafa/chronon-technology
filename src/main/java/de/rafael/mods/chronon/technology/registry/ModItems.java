@@ -10,6 +10,10 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -19,31 +23,29 @@ import org.jetbrains.annotations.NotNull;
 
 public class ModItems {
 
-    /* Core */
-    public static final Item CHRONON_CORE = registerItem("chronon_core",
-            new ItemWithDescription(new Item.Properties().stacksTo(1), Constants.Components.CORE_DESCRIPTION));
-    public static final Item CHRONON_ACCELERATOR = registerItem("chronon_accelerator",
-            new AcceleratorItem());
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ChrononTech.MOD_ID);
 
-    /* Plating */
-    public static final Item IRON_PLATING = registerItem("iron_plating",
-            new PlatingItem(PlatingType.IRON));
-    public static final Item GOLD_PLATING = registerItem("gold_plating",
-            new PlatingItem(PlatingType.GOLD));
-    public static final Item DIAMOND_PLATING = registerItem("diamond_plating",
-            new PlatingItem(PlatingType.DIAMOND));
-    public static final Item NETHERITE_PLATING = registerItem("netherite_plating",
-            new PlatingItem(PlatingType.NETHERITE));
+    // Core
+    public static final RegistryObject<Item> CHRONON_CORE = ITEMS.register("chronon_core",
+            () -> new ItemWithDescription(new Item.Properties().stacksTo(1), Constants.Components.CORE_DESCRIPTION));
+    public static final RegistryObject<Item> CHRONON_ACCELERATOR = ITEMS.register("chronon_accelerator", AcceleratorItem::new);
 
-    public static final Item DEBUG_PLATING = registerItem("debug_plating",
-            new PlatingItem(PlatingType.DEBUG));
+    // Plating
+    public static final RegistryObject<Item> IRON_PLATING = ITEMS.register("iron_plating",
+            () -> new PlatingItem(PlatingType.IRON));
+    public static final RegistryObject<Item> GOLD_PLATING = ITEMS.register("gold_plating",
+            () -> new PlatingItem(PlatingType.GOLD));
+    public static final RegistryObject<Item> DIAMOND_PLATING = ITEMS.register("diamond_plating",
+            () -> new PlatingItem(PlatingType.DIAMOND));
+    public static final RegistryObject<Item> NETHERITE_PLATING = ITEMS.register("netherite_plating",
+            () -> new PlatingItem(PlatingType.NETHERITE));
 
-    private static @NotNull Item registerItem(String id, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(ChrononTech.MOD_ID, id), item);
-    }
+    public static final RegistryObject<Item> DEBUG_PLATING = ITEMS.register("debug_plating",
+            () -> new PlatingItem(PlatingType.DEBUG));
 
-    public static void register() {
-        ChrononTech.LOGGER.info("[REGISTRY] Adding items");
+    public static void register(IEventBus eventBus) {
+        ChrononTech.LOGGER.debug("[REGISTRY] Adding items");
+        ITEMS.register(eventBus);
     }
 
 }
