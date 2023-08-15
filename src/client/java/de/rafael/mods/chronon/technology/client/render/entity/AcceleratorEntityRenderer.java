@@ -31,16 +31,37 @@ public class AcceleratorEntityRenderer extends EntityRenderer<AcceleratorEntity>
     public void render(@NotNull AcceleratorEntity entity, float yaw, float delta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource source, int i) {
         int rate = entity.getTickRate();
         Component component = Component.literal("x" + rate).withStyle(ChatFormatting.WHITE);
-        float padding = 0.11f + (0.08f * (String.valueOf(rate).length() - 1));
+        //Component arrowComponent = Component.literal("<>").withStyle(ChatFormatting.AQUA);
+        float offset = 0.11f + (0.08f * (String.valueOf(rate).length() - 1));
+        float offsetY = 0f;
         Vector3f scale = new Vector3f(0.02f, -0.02f, 0.02f);
 
-        // Render | Is the same as Time in a Bottle
-        DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-padding, 0.064f, 0.51f), scale, Axis.YP.rotationDegrees(0));
-        DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(padding, 0.064f, -0.51f), scale, Axis.YP.rotationDegrees(180));
-        DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(0.51f, 0.064f, padding), scale, Axis.YP.rotationDegrees(90));
-        DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-0.51f, 0.064f, -padding), scale, Axis.YP.rotationDegrees(-90));
-        DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-padding, 0.51f, -0.064f), scale, Axis.XP.rotationDegrees(90));
-        DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-padding, -0.51f, 0.064f), scale, Axis.XP.rotationDegrees(-90));
+        // entity.stepAnimation(rate / (256 / 2f), 0.55f, -0.2f);
+
+        { // SOUTH
+            // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-offset + entity.getAnimationOffset(), 0.064f + offsetY, 0.51f), scale, Axis.YP.rotationDegrees(0));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, 0.064f - offsetY, 0.51f), scale, Axis.YP.rotationDegrees(0));
+        }
+        { // NORTH
+            // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(offset - entity.getAnimationOffset(), 0.064f + offsetY, -0.51f), scale, Axis.YP.rotationDegrees(180));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(offset, 0.064f - offsetY, -0.51f), scale, Axis.YP.rotationDegrees(180));
+        }
+        { // EAST
+            // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(0.51f, 0.064f + offsetY, offset - entity.getAnimationOffset()), scale, Axis.YP.rotationDegrees(90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(0.51f, 0.064f - offsetY, offset), scale, Axis.YP.rotationDegrees(90));
+        }
+        { // WEST
+            // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-0.51f, 0.064f + offsetY, -offset + entity.getAnimationOffset()), scale, Axis.YP.rotationDegrees(-90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-0.51f, 0.064f - offsetY, -offset), scale, Axis.YP.rotationDegrees(-90));
+        }
+        { // UP
+            // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-offset + entity.getAnimationOffset(), 0.51f, -0.064f - offsetY), scale, Axis.XP.rotationDegrees(90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, 0.51f, -0.064f + offsetY), scale, Axis.XP.rotationDegrees(90));
+        }
+        { // DOWN
+            // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-offset + entity.getAnimationOffset(), -0.51f, 0.064f + offsetY), scale, Axis.XP.rotationDegrees(-90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, -0.51f, 0.064f - offsetY), scale, Axis.XP.rotationDegrees(-90));
+        }
     }
 
     @Override

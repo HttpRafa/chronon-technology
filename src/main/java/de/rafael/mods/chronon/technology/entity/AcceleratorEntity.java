@@ -40,6 +40,11 @@ public class AcceleratorEntity extends Entity {
     private int ticksLeft;
     private BlockPos blockPos;
 
+    //TODO: Remove animation fields
+    private long lastRenderTime = System.currentTimeMillis();
+    private boolean animationDirection = true;
+    private float animationOffset = 0;
+
     public AcceleratorEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
@@ -89,6 +94,29 @@ public class AcceleratorEntity extends Entity {
 
     public void setTickRate(int rate) {
         entityData.set(tickRate, rate);
+    }
+
+    @Deprecated(forRemoval = true)
+    public void stepAnimation(float speed, float upperBound, float lowerBound) {
+        if(animationDirection) {
+            this.animationOffset += speed * calcDelta();
+            if(this.animationOffset > upperBound) {
+                this.animationOffset = upperBound;
+                this.animationDirection = !this.animationDirection;
+            }
+        } else {
+            this.animationOffset -= speed * calcDelta();
+            if(this.animationOffset < lowerBound) {
+                this.animationOffset = lowerBound;
+                this.animationDirection = !this.animationDirection;
+            }
+        }
+    }
+
+    public float calcDelta() {
+        float deltaTime = (System.currentTimeMillis() - lastRenderTime) / 1000f;
+        lastRenderTime = System.currentTimeMillis();
+        return deltaTime;
     }
 
     @Override
