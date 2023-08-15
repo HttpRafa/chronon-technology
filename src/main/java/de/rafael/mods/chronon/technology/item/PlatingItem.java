@@ -1,6 +1,6 @@
 package de.rafael.mods.chronon.technology.item;
 
-import de.rafael.mods.chronon.technology.types.PlattingType;
+import de.rafael.mods.chronon.technology.types.PlatingType;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -19,20 +19,20 @@ import java.util.List;
  */
 
 @Getter
-public class PlattingItem extends Item {
+public class PlatingItem extends Item {
 
-    private final PlattingType plattingType;
+    private final PlatingType platingType;
 
-    public PlattingItem(@NotNull PlattingType plattingType) {
-        super(plattingType == PlattingType.NETHERITE ? new Item.Properties().rarity(plattingType.getRarity()).stacksTo(1).fireResistant() : new Item.Properties().rarity(plattingType.getRarity()).stacksTo(1));
-        this.plattingType = plattingType;
+    public PlatingItem(@NotNull PlatingType platingType) {
+        super(platingType == PlatingType.NETHERITE ? new Item.Properties().rarity(platingType.getRarity()).stacksTo(1).fireResistant() : new Item.Properties().rarity(platingType.getRarity()).stacksTo(1));
+        this.platingType = platingType;
     }
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, level, tooltip, tooltipFlag);
-        tooltip.add(Component.translatable("tooltip.chronontech.platting.efficiency").withStyle(ChatFormatting.GREEN)
-                .append(Component.literal("x" + plattingType.getEfficiency()).withStyle(ChatFormatting.GRAY)));
+        tooltip.add(Component.translatable("tooltip.chronontech.plating.efficiency").withStyle(ChatFormatting.AQUA)
+                .append(Component.literal((platingType.getEfficiency() >= 0 ? "x" + platingType.getEfficiency() : "∞")).withStyle(ChatFormatting.GRAY)));
     }
 
 }

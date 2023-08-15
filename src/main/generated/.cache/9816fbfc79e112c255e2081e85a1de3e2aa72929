@@ -1,10 +1,10 @@
-// 1.20.1	2023-08-14T16:33:17.0746454	Chronon Technology/Model Definitions
-a51228469f7a1ab219bc3613777529b266a56512 assets\chronontech\models\item\debug_platting.json
-befba931c80b5d667dd294f01c2c6ddf26d84412 assets\chronontech\models\item\iron_platting.json
+// 1.20.1	2023-08-15T01:56:43.7172097	Chronon Technology/Model Definitions
 0e868eb6b1a3e68a63daa73d8df7e4d7b677ad4b assets\chronontech\models\item\chronon_accelerator.json
-e82ede136c33946c76bf2d23abb5c1fd9e19f800 assets\chronontech\models\item\diamond_platting.json
+a75fd9c55595dc783f3bc082e341d254b3ca60de assets\chronontech\models\item\iron_plating.json
+aee7580ed12863ca375f060910e72ebd9ab9af6d assets\chronontech\models\item\diamond_plating.json
+13840b6b13f929e7951f9308854cbdd000d5032c assets\chronontech\models\item\netherite_plating.json
 2825baee00f2f4e0f99865524d27bbd54d9d838a assets\chronontech\models\item\chronon_collector.json
 fb2dcfad1631deeeba0808c9ec5c966beed2abae assets\chronontech\models\item\chronon_core.json
-e35dc07755a5e23d7384a8957dc4711a93023a85 assets\chronontech\models\item\netherite_platting.json
-1a477b40ebd67757db2dd953e940bfd22aa25d13 assets\chronontech\models\item\gold_platting.json
+8a36b64f65bfed7167b87a67c51416c518222849 assets\chronontech\models\item\gold_plating.json
+b404f2fa71d74f88aea2b24f570052177975fdde assets\chronontech\models\item\debug_plating.json
 40e5bd9db4c5ad7522df77874624e7c332f4d54b assets\chronontech\blockstates\chronon_collector.json

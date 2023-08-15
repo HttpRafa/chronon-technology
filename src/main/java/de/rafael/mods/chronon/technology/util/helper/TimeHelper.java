@@ -1,4 +1,4 @@
-package de.rafael.mods.chronon.technology.utils.helper;
+package de.rafael.mods.chronon.technology.util.helper;
 
 import org.jetbrains.annotations.NotNull;
 

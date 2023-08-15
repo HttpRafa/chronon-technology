@@ -1,4 +1,7 @@
-package de.rafael.mods.chronon.technology.utils.values;
+package de.rafael.mods.chronon.technology.util.values;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 import java.util.function.Function;
 
@@ -8,6 +11,13 @@ import java.util.function.Function;
  */
 
 public class Constants {
+
+    public static class Components {
+
+        public static final Component STORAGE_DESCRIPTION = Component.literal("► ").withStyle(ChatFormatting.DARK_GRAY).append(Component.translatable("tooltip.chronontech.storage.description").withStyle(ChatFormatting.GRAY));
+        public static final Component CORE_DESCRIPTION = Component.literal("► ").withStyle(ChatFormatting.DARK_GRAY).append(Component.translatable("tooltip.chronontech.core.description").withStyle(ChatFormatting.RED));
+
+    }
 
     public static class Sounds {
 

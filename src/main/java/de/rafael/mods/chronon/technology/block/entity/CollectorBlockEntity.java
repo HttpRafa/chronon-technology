@@ -1,13 +1,13 @@
 package de.rafael.mods.chronon.technology.block.entity;
 
 import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntity;
-import de.rafael.mods.chronon.technology.item.PlattingItem;
+import de.rafael.mods.chronon.technology.item.PlatingItem;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.registry.ModBlockEntities;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
-import de.rafael.mods.chronon.technology.types.PlattingType;
-import de.rafael.mods.chronon.technology.utils.helper.CompactContainerData;
-import de.rafael.mods.chronon.technology.utils.values.NbtKeys;
+import de.rafael.mods.chronon.technology.types.PlatingType;
+import de.rafael.mods.chronon.technology.util.helper.CompactContainerData;
+import de.rafael.mods.chronon.technology.util.values.NbtKeys;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,7 +38,7 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     public static final int PROGRESS_SYNC_ID = 0;
     public static final int STORED_CHRONONS_SYNC_ID = 1;
 
-    public static final int PLATTING_SLOT = 0;
+    public static final int PLATING_SLOT = 0;
     public static final int STORAGE_SLOT = 1;
 
     public static final int MAX_STORAGE_SIZE = ChrononStorageItem.CORE_MAX_STORAGE_SIZE * 2;
@@ -76,13 +76,13 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
         if(level.isClientSide()) return;
 
-        var plattingStack = getItem(PLATTING_SLOT);
-        if(!plattingStack.isEmpty() && plattingStack.getItem() instanceof PlattingItem item) {
+        var platingStack = getItem(PLATING_SLOT);
+        if(!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
             ticks++;
-            if(item.getPlattingType().getEfficiency() > 20f) {
+            if(item.getPlatingType().getEfficiency() < 0) {
                 this.storedChronons = MAX_STORAGE_SIZE;
                 this.ticks = 0;
-            } else if(ticks >= item.getPlattingType().getTicksPerChronon()) {
+            } else if(ticks >= item.getPlatingType().getTicksPerChronon()) {
                 this.ticks = 0;
                 this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
             }

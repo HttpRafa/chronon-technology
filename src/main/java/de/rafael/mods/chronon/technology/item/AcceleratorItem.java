@@ -1,16 +1,19 @@
 package de.rafael.mods.chronon.technology.item;
 
+import com.terraformersmc.modmenu.util.mod.Mod;
 import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.entity.AcceleratorEntity;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
-import de.rafael.mods.chronon.technology.utils.values.Constants;
+import de.rafael.mods.chronon.technology.registry.ModItems;
+import de.rafael.mods.chronon.technology.registry.ModTags;
+import de.rafael.mods.chronon.technology.util.values.Constants;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -29,6 +32,13 @@ public class AcceleratorItem extends ChrononStorageItem {
         super(ChrononStorageItem.CORE_MAX_STORAGE_SIZE * 2, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     }
 
+    public static @NotNull ItemStack fullyChargedStack() {
+        AcceleratorItem item = ((AcceleratorItem)ModItems.CHRONON_ACCELERATOR);
+        ItemStack itemStack = new ItemStack(item);
+        item.setChronons(itemStack, item.getMaxStorageSize());
+        return itemStack;
+    }
+
     @Override
     public @NotNull InteractionResult useOn(@NotNull UseOnContext useOnContext) {
         Player player = useOnContext.getPlayer();
@@ -37,7 +47,7 @@ public class AcceleratorItem extends ChrononStorageItem {
         if(level.isClientSide()) return InteractionResult.PASS;
         BlockPos blockPos = useOnContext.getClickedPos();
         BlockState blockState = level.getBlockState(blockPos);
-        if(!blockState.isRandomlyTicking() && level.getBlockEntity(blockPos) == null) return InteractionResult.FAIL;
+        if(blockState.is(ModTags.Blocks.ACCELERATION_BLACKLIST) || (!blockState.isRandomlyTicking() && level.getBlockEntity(blockPos) == null)) return InteractionResult.FAIL;
 
         // Check if accelerator already exists
         level.getEntitiesOfClass(AcceleratorEntity.class, new AABB(blockPos)).stream().findFirst().ifPresentOrElse(accelerator -> {
@@ -50,6 +60,7 @@ public class AcceleratorItem extends ChrononStorageItem {
             rate = rate * 2; // Increment current rate
             ticks = ticks / 2; // Add additional ticks to the old time
             int cost = player.isCreative() ? 0 : (rate / 2) * ((accelerator.getTicksLeft() + ticks) / 20);
+            if(cost > getChronons(useOnContext.getItemInHand())) { playMissingSound(player); return; }
 
             accelerator.setTickRate(rate);
             accelerator.setTicksLeft(accelerator.getTicksLeft() + ticks);
@@ -58,7 +69,7 @@ public class AcceleratorItem extends ChrononStorageItem {
             playSound(level, blockPos, rate);
         }, () -> {
             int cost = player.isCreative() ? 0 : (AcceleratorConfig.boostTime / 20);
-            if(cost > getChronons(useOnContext.getItemInHand())) return;
+            if(cost > getChronons(useOnContext.getItemInHand())) { playMissingSound(player); return; }
 
             AcceleratorEntity accelerator = new AcceleratorEntity(level, blockPos);
             accelerator.setTicksLeft(AcceleratorConfig.boostTime);
@@ -70,6 +81,10 @@ public class AcceleratorItem extends ChrononStorageItem {
         });
 
         return InteractionResult.SUCCESS;
+    }
+
+    private void playMissingSound(@NotNull Player player) {
+        player.playNotifySound(SoundEvents.CHEST_LOCKED, SoundSource.BLOCKS, 0.25f, 2f);
     }
 
     private void playSound(@NotNull Level level, BlockPos blockPos, int rate) {

@@ -13,12 +13,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_gold_platting": {
+    "has_gold_plating": {
       "conditions": {
         "items": [
           {
             "items": [
-              "chronontech:gold_platting"
+              "chronontech:gold_plating"
             ]
           }
         ]
@@ -39,7 +39,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:diamond_platting"
+        "recipe": "minecraft:diamond_plating"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -48,13 +48,13 @@
     [
       "has_iron_bars",
       "has_diamond",
-      "has_gold_platting",
+      "has_gold_plating",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:diamond_platting"
+      "minecraft:diamond_plating"
     ]
   },
   "sends_telemetry_event": false

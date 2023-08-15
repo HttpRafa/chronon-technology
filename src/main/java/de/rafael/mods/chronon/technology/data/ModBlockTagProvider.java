@@ -1,6 +1,7 @@
 package de.rafael.mods.chronon.technology.data;
 
 import de.rafael.mods.chronon.technology.registry.ModBlocks;
+import de.rafael.mods.chronon.technology.registry.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -24,6 +25,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.CHRONON_COLLECTOR);
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
+                .add(ModBlocks.CHRONON_COLLECTOR);
+
+        getOrCreateTagBuilder(ModTags.Blocks.ACCELERATION_BLACKLIST)
                 .add(ModBlocks.CHRONON_COLLECTOR);
     }
 

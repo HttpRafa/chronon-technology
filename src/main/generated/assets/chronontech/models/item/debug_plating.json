@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "chronontech:item/diamond_platting"
+    "layer0": "chronontech:item/debug_plating"
   }
 }

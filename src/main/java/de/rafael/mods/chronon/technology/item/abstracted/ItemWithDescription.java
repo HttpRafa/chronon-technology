@@ -17,7 +17,7 @@ import java.util.List;
  * @since 12/08/2023
  */
 
-public abstract class ItemWithDescription extends Item {
+public class ItemWithDescription extends Item {
 
     private final List<Component> description;
 

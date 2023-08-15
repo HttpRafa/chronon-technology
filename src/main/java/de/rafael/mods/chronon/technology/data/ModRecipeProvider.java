@@ -1,6 +1,5 @@
 package de.rafael.mods.chronon.technology.data;
 
-import com.terraformersmc.modmenu.util.mod.Mod;
 import de.rafael.mods.chronon.technology.registry.ModBlocks;
 import de.rafael.mods.chronon.technology.registry.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -71,8 +70,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(FabricRecipeProvider.getHasName(ModItems.CHRONON_CORE), FabricRecipeProvider.has(ModItems.CHRONON_CORE))
                 .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModBlocks.CHRONON_COLLECTOR)));
 
-        /* Platting */
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.IRON_PLATTING)
+        /* Plating */
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.IRON_PLATING)
                 .group("chronon")
                 .pattern("BIB").pattern("IGI").pattern("BIB")
                 .define('B', Items.IRON_BARS)
@@ -81,28 +80,28 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.IRON_BARS), FabricRecipeProvider.has(Items.IRON_BARS))
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.IRON_INGOT), FabricRecipeProvider.has(Items.IRON_INGOT))
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.TINTED_GLASS), FabricRecipeProvider.has(Items.TINTED_GLASS))
-                .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModItems.IRON_PLATTING)));
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.GOLD_PLATTING)
+                .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModItems.IRON_PLATING)));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.GOLD_PLATING)
                 .group("chronon")
                 .pattern("BIB").pattern("IPI").pattern("BIB")
                 .define('B', Items.IRON_BARS)
                 .define('I', Items.GOLD_INGOT)
-                .define('P', ModItems.IRON_PLATTING)
+                .define('P', ModItems.IRON_PLATING)
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.IRON_BARS), FabricRecipeProvider.has(Items.IRON_BARS))
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.GOLD_INGOT), FabricRecipeProvider.has(Items.GOLD_INGOT))
-                .unlockedBy(FabricRecipeProvider.getHasName(ModItems.IRON_PLATTING), FabricRecipeProvider.has(ModItems.IRON_PLATTING))
-                .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModItems.GOLD_PLATTING)));
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.DIAMOND_PLATTING)
+                .unlockedBy(FabricRecipeProvider.getHasName(ModItems.IRON_PLATING), FabricRecipeProvider.has(ModItems.IRON_PLATING))
+                .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModItems.GOLD_PLATING)));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.DIAMOND_PLATING)
                 .group("chronon")
                 .pattern("BIB").pattern("IPI").pattern("BIB")
                 .define('B', Items.IRON_BARS)
                 .define('I', Items.DIAMOND)
-                .define('P', ModItems.GOLD_PLATTING)
+                .define('P', ModItems.GOLD_PLATING)
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.IRON_BARS), FabricRecipeProvider.has(Items.IRON_BARS))
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.DIAMOND), FabricRecipeProvider.has(Items.DIAMOND))
-                .unlockedBy(FabricRecipeProvider.getHasName(ModItems.GOLD_PLATTING), FabricRecipeProvider.has(ModItems.GOLD_PLATTING))
-                .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModItems.DIAMOND_PLATTING)));
-        netheriteSmithing(exporter, ModItems.DIAMOND_PLATTING, RecipeCategory.REDSTONE, ModItems.NETHERITE_PLATTING);
+                .unlockedBy(FabricRecipeProvider.getHasName(ModItems.GOLD_PLATING), FabricRecipeProvider.has(ModItems.GOLD_PLATING))
+                .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModItems.DIAMOND_PLATING)));
+        netheriteSmithing(exporter, ModItems.DIAMOND_PLATING, RecipeCategory.REDSTONE, ModItems.NETHERITE_PLATING);
     }
 
 }

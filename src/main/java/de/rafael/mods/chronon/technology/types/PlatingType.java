@@ -1,6 +1,5 @@
 package de.rafael.mods.chronon.technology.types;
 
-import de.rafael.mods.chronon.technology.ChrononTech;
 import lombok.Getter;
 import net.minecraft.world.item.Rarity;
 
@@ -10,19 +9,19 @@ import net.minecraft.world.item.Rarity;
  */
 
 @Getter
-public enum PlattingType {
+public enum PlatingType {
 
     IRON(Rarity.COMMON, 0.5f),
     GOLD(Rarity.UNCOMMON, 1f),
     DIAMOND(Rarity.RARE, 2f),
     NETHERITE(Rarity.EPIC, 4f),
-    DEBUG(Rarity.EPIC, Float.MAX_VALUE / 4);
+    DEBUG(Rarity.EPIC, -1f);
 
     private final Rarity rarity;
     private final float efficiency;
     private final int ticksPerChronon;
 
-    PlattingType(Rarity rarity, float efficiency) {
+    PlatingType(Rarity rarity, float efficiency) {
         this.rarity = rarity;
         this.efficiency = efficiency;
         this.ticksPerChronon = (int) (20 / efficiency);

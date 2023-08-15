@@ -1,4 +1,4 @@
-package de.rafael.mods.chronon.technology.utils.helper;
+package de.rafael.mods.chronon.technology.util.helper;
 
 import lombok.AllArgsConstructor;
 import net.minecraft.world.inventory.ContainerData;

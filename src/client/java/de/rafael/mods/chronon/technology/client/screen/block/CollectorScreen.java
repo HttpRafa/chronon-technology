@@ -3,7 +3,7 @@ package de.rafael.mods.chronon.technology.client.screen.block;
 import com.mojang.blaze3d.systems.RenderSystem;
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
-import de.rafael.mods.chronon.technology.utils.helper.TimeHelper;
+import de.rafael.mods.chronon.technology.util.helper.TimeHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -54,7 +54,7 @@ public class CollectorScreen extends AbstractContainerScreen<CollectorScreenHand
         if(isHovering(13, 77, CollectorScreenHandler.BAR_SIZE, 5, mouseX, mouseY)) {
             long storedTime = TimeHelper.millisFromChronons(this.menu.getChrononAmount());
             guiGraphics.renderTooltip(Minecraft.getInstance().font, Component.translatable("tooltip.chronontech.storage.storedTime")
-                    .withStyle(ChatFormatting.GREEN).append(Component.literal(TimeHelper.formatTime(storedTime))
+                    .withStyle(ChatFormatting.AQUA).append(Component.literal(TimeHelper.formatTime(storedTime))
                             .withStyle(ChatFormatting.GRAY)), mouseX, mouseY);
         }
     }

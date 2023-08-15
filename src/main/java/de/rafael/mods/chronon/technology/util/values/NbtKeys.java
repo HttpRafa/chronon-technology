@@ -1,7 +1,6 @@
-package de.rafael.mods.chronon.technology.utils.values;
+package de.rafael.mods.chronon.technology.util.values;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**

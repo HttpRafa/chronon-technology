@@ -7,13 +7,15 @@
   "category.chronon_technology": "Chronon Technology",
   "item.chronontech.chronon_core": "Chronon Core",
   "item.chronontech.chronon_accelerator": "Chronon Accelerator",
-  "item.chronontech.iron_platting": "Iron Platting",
-  "item.chronontech.gold_platting": "Gold Platting",
-  "item.chronontech.diamond_platting": "Diamond Platting",
-  "item.chronontech.netherite_platting": "Netherite Platting",
+  "item.chronontech.iron_plating": "Iron Plating",
+  "item.chronontech.gold_plating": "Gold Plating",
+  "item.chronontech.diamond_plating": "Diamond Plating",
+  "item.chronontech.netherite_plating": "Netherite Plating",
+  "item.chronontech.debug_plating": "Debug Plating",
   "block.chronontech.chronon_collector": "Chronon Collector",
   "tooltip.chronontech.storage.storedTime": "Stored time: ",
-  "tooltip.chronontech.platting.efficiency": "Platting efficiency: ",
+  "tooltip.chronontech.plating.efficiency": "Plating efficiency: ",
   "screen.chronontech.collector": "Chronon Collector",
-  "tooltip.chronontech.storage.description": "To charge this item, insert it into an chronon collector"
+  "tooltip.chronontech.storage.description": "To charge this item, insert it into an chronon collector",
+  "tooltip.chronontech.core.description": "This item can only be used inside a machine like a Chronon Accelerator"
 }

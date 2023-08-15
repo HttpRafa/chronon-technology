@@ -2,8 +2,7 @@ package de.rafael.mods.chronon.technology.screen.block;
 
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
 import de.rafael.mods.chronon.technology.item.AcceleratorItem;
-import de.rafael.mods.chronon.technology.item.PlattingItem;
-import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
+import de.rafael.mods.chronon.technology.item.PlatingItem;
 import de.rafael.mods.chronon.technology.registry.ModScreenHandlers;
 import de.rafael.mods.chronon.technology.screen.block.base.BaseContainerMenu;
 import de.rafael.mods.chronon.technology.screen.slot.TypeLockedSlot;
@@ -26,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 public class CollectorScreenHandler extends BaseContainerMenu {
 
-    public static final int BAR_SIZE = 131;
+    public static final int BAR_SIZE = 132;
 
     private final Container container;
     private final ContainerData containerData;
@@ -42,8 +41,8 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         inventory.startOpen(inventory.player);
         this.containerData = containerData;
 
-        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.PLATTING_SLOT, 80, 52, PlattingItem.class));
-        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.STORAGE_SLOT, 152, 72, ChrononStorageItem.class, AcceleratorItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.PLATING_SLOT, 80, 52, PlatingItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.STORAGE_SLOT, 152, 72, AcceleratorItem.class));
 
         addPlayerInventory(inventory, 162, 104);
 

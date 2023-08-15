@@ -1,6 +1,7 @@
 package de.rafael.mods.chronon.technology.registry;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
+import de.rafael.mods.chronon.technology.item.AcceleratorItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -19,16 +20,24 @@ public class ModTabs {
 
     public static final CreativeModeTab MOD_TAB = registerTab("chronon_technology", FabricItemGroup.builder()
             .title(Component.translatable("category.chronon_technology"))
-            .icon(() -> new ItemStack(ModBlocks.CHRONON_COLLECTOR))
+            .icon(() -> new ItemStack(ModItems.CHRONON_CORE))
             .displayItems((parameters, output) -> {
-                output.accept(ModItems.CHRONON_CORE);
-                output.accept(ModItems.CHRONON_ACCELERATOR);
+                /* Blocks */
                 output.accept(ModBlocks.CHRONON_COLLECTOR);
 
-                output.accept(ModItems.IRON_PLATTING);
-                output.accept(ModItems.GOLD_PLATTING);
-                output.accept(ModItems.DIAMOND_PLATTING);
-                output.accept(ModItems.NETHERITE_PLATTING);
+                /* Primary Items */
+                output.accept(ModItems.CHRONON_ACCELERATOR);
+                output.accept(AcceleratorItem.fullyChargedStack());
+
+                /* Ingredients */
+                output.accept(ModItems.CHRONON_CORE);
+
+                /* Plating */
+                output.accept(ModItems.IRON_PLATING);
+                output.accept(ModItems.GOLD_PLATING);
+                output.accept(ModItems.DIAMOND_PLATING);
+                output.accept(ModItems.NETHERITE_PLATING);
+                output.accept(ModItems.DEBUG_PLATING);
             }).build());
 
     private static @NotNull CreativeModeTab registerTab(String id, CreativeModeTab tab) {

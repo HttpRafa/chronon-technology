@@ -17,6 +17,6 @@ public final class GuiConfig {
             type = EntryType.INTEGER,
             translation = "text.resourcefulconfig.chronontech.option.gui.chrononColor"
     )
-    public static int chrononColor = 0x3CFE9A; // Default color used for Mekanism Energy
+    public static int chrononColor = 0x0D7BCB;
 
 }

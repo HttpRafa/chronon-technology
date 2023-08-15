@@ -4,10 +4,10 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "chronontech:diamond_platting"
+    "item": "chronontech:diamond_plating"
   },
   "result": {
-    "item": "chronontech:netherite_platting"
+    "item": "chronontech:netherite_plating"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

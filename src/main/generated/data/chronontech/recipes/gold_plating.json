@@ -6,20 +6,20 @@
     "B": {
       "item": "minecraft:iron_bars"
     },
-    "G": {
-      "item": "minecraft:tinted_glass"
-    },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:gold_ingot"
+    },
+    "P": {
+      "item": "chronontech:iron_plating"
     }
   },
   "pattern": [
     "BIB",
-    "IGI",
+    "IPI",
     "BIB"
   ],
   "result": {
-    "item": "chronontech:iron_platting"
+    "item": "chronontech:gold_plating"
   },
   "show_notification": true
 }

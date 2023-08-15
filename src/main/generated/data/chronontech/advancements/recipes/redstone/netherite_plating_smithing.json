@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:netherite_platting_smithing"
+        "recipe": "minecraft:netherite_plating_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:netherite_platting_smithing"
+      "minecraft:netherite_plating_smithing"
     ]
   },
   "sends_telemetry_event": false

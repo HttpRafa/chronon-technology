@@ -10,7 +10,7 @@
       "item": "minecraft:diamond"
     },
     "P": {
-      "item": "chronontech:gold_platting"
+      "item": "chronontech:gold_plating"
     }
   },
   "pattern": [
@@ -19,7 +19,7 @@
     "BIB"
   ],
   "result": {
-    "item": "chronontech:diamond_platting"
+    "item": "chronontech:diamond_plating"
   },
   "show_notification": true
 }

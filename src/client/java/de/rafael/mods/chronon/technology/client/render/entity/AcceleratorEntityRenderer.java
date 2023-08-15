@@ -2,6 +2,7 @@ package de.rafael.mods.chronon.technology.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.client.utils.helper.DrawHelper;
 import de.rafael.mods.chronon.technology.entity.AcceleratorEntity;
 import net.minecraft.ChatFormatting;
@@ -20,12 +21,14 @@ import org.joml.Vector3f;
 
 public class AcceleratorEntityRenderer extends EntityRenderer<AcceleratorEntity> {
 
+    private static final ResourceLocation ARROW_TEXTURE = new ResourceLocation(ChrononTech.MOD_ID, "textures/world/accelerator/arrow.png");
+
     public AcceleratorEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void render(@NotNull AcceleratorEntity entity, float f, float g, PoseStack poseStack, MultiBufferSource source, int i) {
+    public void render(@NotNull AcceleratorEntity entity, float yaw, float delta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource source, int i) {
         int rate = entity.getTickRate();
         Component component = Component.literal("x" + rate).withStyle(ChatFormatting.WHITE);
         float padding = 0.11f + (0.08f * (String.valueOf(rate).length() - 1));
@@ -41,8 +44,8 @@ public class AcceleratorEntityRenderer extends EntityRenderer<AcceleratorEntity>
     }
 
     @Override
-    public ResourceLocation getTextureLocation(AcceleratorEntity entity) {
-        return null;
+    public @NotNull ResourceLocation getTextureLocation(AcceleratorEntity entity) {
+        return ARROW_TEXTURE;
     }
 
 }

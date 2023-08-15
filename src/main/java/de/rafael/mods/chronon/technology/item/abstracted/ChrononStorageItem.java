@@ -1,11 +1,13 @@
 package de.rafael.mods.chronon.technology.item.abstracted;
 
 import de.rafael.mods.chronon.technology.config.GuiConfig;
-import de.rafael.mods.chronon.technology.utils.helper.TimeHelper;
-import de.rafael.mods.chronon.technology.utils.values.NbtKeys;
+import de.rafael.mods.chronon.technology.util.helper.TimeHelper;
+import de.rafael.mods.chronon.technology.util.values.Constants;
+import de.rafael.mods.chronon.technology.util.values.NbtKeys;
+import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -19,6 +21,7 @@ import java.util.List;
  * @since 07/08/2023
  */
 
+@Getter
 public class ChrononStorageItem extends ItemWithDescription {
 
     public static final int CORE_MAX_STORAGE_SIZE = 86400;
@@ -26,14 +29,14 @@ public class ChrononStorageItem extends ItemWithDescription {
     private final int maxStorageSize;
 
     public ChrononStorageItem(int maxStorageSize, Properties properties) {
-        super(properties, Component.literal("► ").withStyle(ChatFormatting.DARK_GRAY).append(Component.translatable("tooltip.chronontech.storage.description").withStyle(ChatFormatting.GRAY)));
+        super(properties, Constants.Components.STORAGE_DESCRIPTION);
         this.maxStorageSize = maxStorageSize;
     }
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, @NotNull List<Component> tooltip, TooltipFlag tooltipFlag) {
         tooltip.add(Component.translatable("tooltip.chronontech.storage.storedTime")
-                .withStyle(ChatFormatting.GREEN).append(Component.literal(TimeHelper
+                .withStyle(ChatFormatting.AQUA).append(Component.literal(TimeHelper
                                 .formatTime(TimeHelper
                                         .millisFromChronons(getChronons(itemStack))))
                         .withStyle(ChatFormatting.GRAY)));
