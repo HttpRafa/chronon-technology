@@ -27,6 +27,7 @@ import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.entity.AcceleratorEntity;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.registry.ModItems;
+import de.rafael.mods.chronon.technology.registry.ModTabs;
 import de.rafael.mods.chronon.technology.registry.ModTags;
 import de.rafael.mods.chronon.technology.util.values.Constants;
 import net.minecraft.core.BlockPos;
@@ -51,7 +52,7 @@ import org.jetbrains.annotations.NotNull;
 public class AcceleratorItem extends ChrononStorageItem {
 
     public AcceleratorItem() {
-        super(ChrononStorageItem.CORE_MAX_STORAGE_SIZE * 2, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
+        super(ChrononStorageItem.CORE_MAX_STORAGE_SIZE * 2, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).tab(ModTabs.MOD_TAB));
     }
 
     public static @NotNull ItemStack fullyChargedStack() {
@@ -110,7 +111,7 @@ public class AcceleratorItem extends ChrononStorageItem {
     }
 
     private void playSound(@NotNull Level level, BlockPos blockPos, int rate) {
-        level.playSound(null, blockPos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS, 0.5f, Constants.Sounds.SOUND_SUPPLIER.apply(rate));
+        level.playSound(null, blockPos, SoundEvents.NOTE_BLOCK_PLING, SoundSource.BLOCKS, 0.5f, Constants.Sounds.SOUND_SUPPLIER.apply(rate));
     }
 
 }

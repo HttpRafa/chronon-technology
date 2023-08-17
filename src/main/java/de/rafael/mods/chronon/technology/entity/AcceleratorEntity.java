@@ -30,6 +30,7 @@ import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -78,7 +80,7 @@ public class AcceleratorEntity extends Entity {
     public void tick() {
         super.tick();
 
-        Level level = level();
+        Level level = getLevel();
         if(level.isClientSide()) return;
         if(blockPos == null) { remove(); return; }
 
@@ -162,11 +164,6 @@ public class AcceleratorEntity extends Entity {
     }
 
     @Override
-    protected boolean couldAcceptPassenger() {
-        return false;
-    }
-
-    @Override
     protected void addPassenger(Entity entity) {
         throw new IllegalStateException("Should never addPassenger without checking couldAcceptPassenger()");
     }
@@ -174,6 +171,11 @@ public class AcceleratorEntity extends Entity {
     @Override
     public @NotNull PushReaction getPistonPushReaction() {
         return PushReaction.IGNORE;
+    }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override

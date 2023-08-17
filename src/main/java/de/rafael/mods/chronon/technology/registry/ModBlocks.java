@@ -47,7 +47,7 @@ public class ModBlocks {
 
     private static <T extends Block> RegistryObject<T> registerBlock(String id, Supplier<T> block) {
         RegistryObject<T> registered = BLOCKS.register(id, block);
-        ModItems.ITEMS.register(id, () -> new BlockItem(registered.get(), new Item.Properties()));
+        ModItems.ITEMS.register(id, () -> new BlockItem(registered.get(), new Item.Properties().tab(ModTabs.MOD_TAB)));
         return registered;
     }
 

@@ -23,6 +23,7 @@
  */
 package de.rafael.mods.chronon.technology.item;
 
+import de.rafael.mods.chronon.technology.registry.ModTabs;
 import de.rafael.mods.chronon.technology.types.PlatingType;
 import java.util.List;
 import lombok.Getter;
@@ -46,7 +47,7 @@ public class PlatingItem extends Item {
     private final PlatingType platingType;
 
     public PlatingItem(@NotNull PlatingType platingType) {
-        super(platingType == PlatingType.NETHERITE ? new Item.Properties().rarity(platingType.getRarity()).stacksTo(1).fireResistant() : new Item.Properties().rarity(platingType.getRarity()).stacksTo(1));
+        super(platingType == PlatingType.NETHERITE ? new Item.Properties().rarity(platingType.getRarity()).stacksTo(1).fireResistant().tab(ModTabs.MOD_TAB) : new Item.Properties().rarity(platingType.getRarity()).stacksTo(1).tab(ModTabs.MOD_TAB));
         this.platingType = platingType;
     }
 

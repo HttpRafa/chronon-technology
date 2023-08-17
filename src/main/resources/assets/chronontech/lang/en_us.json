@@ -4,7 +4,7 @@
   "text.resourcefulconfig.chronontech.option.accelerator": "Accelerator",
   "text.resourcefulconfig.chronontech.option.accelerator.boostTime": "Boost Time",
   "text.resourcefulconfig.chronontech.option.accelerator.maxTickRate": "Max Tick Rate [2^n]",
-  "category.chronon_technology": "Chronon Technology",
+  "itemGroup.chronon_technology": "Chronon Technology",
   "item.chronontech.chronon_core": "Chronon Core",
   "item.chronontech.chronon_accelerator": "Chronon Accelerator",
   "item.chronontech.iron_plating": "Iron Plating",

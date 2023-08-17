@@ -24,7 +24,7 @@
 package de.rafael.mods.chronon.technology.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
+import com.mojang.math.Vector3f;
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.client.utils.helper.DrawHelper;
 import de.rafael.mods.chronon.technology.entity.AcceleratorEntity;
@@ -35,7 +35,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 /**
  * @author Rafael K.
@@ -63,27 +62,27 @@ public class AcceleratorEntityRenderer extends EntityRenderer<AcceleratorEntity>
 
         { // SOUTH
             // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-offset + entity.getAnimationOffset(), 0.064f + offsetY, 0.51f), scale, Axis.YP.rotationDegrees(0));
-            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, 0.064f - offsetY, 0.51f), scale, Axis.YP.rotationDegrees(0));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, 0.064f - offsetY, 0.51f), scale, Vector3f.YP.rotationDegrees(0));
         }
         { // NORTH
             // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(offset - entity.getAnimationOffset(), 0.064f + offsetY, -0.51f), scale, Axis.YP.rotationDegrees(180));
-            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(offset, 0.064f - offsetY, -0.51f), scale, Axis.YP.rotationDegrees(180));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(offset, 0.064f - offsetY, -0.51f), scale, Vector3f.YP.rotationDegrees(180));
         }
         { // EAST
             // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(0.51f, 0.064f + offsetY, offset - entity.getAnimationOffset()), scale, Axis.YP.rotationDegrees(90));
-            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(0.51f, 0.064f - offsetY, offset), scale, Axis.YP.rotationDegrees(90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(0.51f, 0.064f - offsetY, offset), scale, Vector3f.YP.rotationDegrees(90));
         }
         { // WEST
             // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-0.51f, 0.064f + offsetY, -offset + entity.getAnimationOffset()), scale, Axis.YP.rotationDegrees(-90));
-            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-0.51f, 0.064f - offsetY, -offset), scale, Axis.YP.rotationDegrees(-90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-0.51f, 0.064f - offsetY, -offset), scale, Vector3f.YP.rotationDegrees(-90));
         }
         { // UP
             // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-offset + entity.getAnimationOffset(), 0.51f, -0.064f - offsetY), scale, Axis.XP.rotationDegrees(90));
-            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, 0.51f, -0.064f + offsetY), scale, Axis.XP.rotationDegrees(90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, 0.51f, -0.064f + offsetY), scale, Vector3f.XP.rotationDegrees(90));
         }
         { // DOWN
             // DrawHelper.drawTextInWorld(arrowComponent, source, poseStack, new Vector3f(-offset + entity.getAnimationOffset(), -0.51f, 0.064f + offsetY), scale, Axis.XP.rotationDegrees(-90));
-            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, -0.51f, 0.064f - offsetY), scale, Axis.XP.rotationDegrees(-90));
+            DrawHelper.drawTextInWorld(component, source, poseStack, new Vector3f(-offset, -0.51f, 0.064f - offsetY), scale, Vector3f.XP.rotationDegrees(-90));
         }
     }
 

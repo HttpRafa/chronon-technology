@@ -46,7 +46,7 @@ public class ModItems {
 
     // Core
     public static final RegistryObject<Item> CHRONON_CORE = ITEMS.register("chronon_core",
-            () -> new ItemWithDescription(new Item.Properties().stacksTo(1), Constants.Components.CORE_DESCRIPTION));
+            () -> new ItemWithDescription(new Item.Properties().stacksTo(1).tab(ModTabs.MOD_TAB), Constants.Components.CORE_DESCRIPTION));
     public static final RegistryObject<Item> CHRONON_ACCELERATOR = ITEMS.register("chronon_accelerator", AcceleratorItem::new);
 
     // Plating
