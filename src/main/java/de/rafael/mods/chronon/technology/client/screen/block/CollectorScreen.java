@@ -70,6 +70,11 @@ public class CollectorScreen extends AbstractContainerScreen<CollectorScreenHand
         RenderSystem.setShaderTexture(0, BAR_TEXTURE);
         int scaledBar = this.menu.scaledBarSize();
         guiGraphics.blit(BAR_TEXTURE, x + 13, y + 77, 0, 0, scaledBar, 5);
+    }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(13, 77, CollectorScreenHandler.BAR_SIZE, 5, mouseX, mouseY)) {
             long storedTime = TimeHelper.millisFromChronons(this.menu.getChrononAmount());
