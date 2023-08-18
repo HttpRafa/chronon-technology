@@ -23,6 +23,7 @@
  */
 package de.rafael.mods.chronon.technology.client;
 
+import de.rafael.mods.chronon.technology.client.registry.ModClientPackets;
 import de.rafael.mods.chronon.technology.client.registry.ModEntityRenderers;
 import de.rafael.mods.chronon.technology.client.registry.ModScreens;
 import net.fabricmc.api.ClientModInitializer;
@@ -38,6 +39,8 @@ public class ChrononTechClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModEntityRenderers.register();
         ModScreens.register();
+
+        ModClientPackets.registerPackets();
     }
 
 }

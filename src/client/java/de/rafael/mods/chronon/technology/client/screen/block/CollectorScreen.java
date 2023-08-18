@@ -80,7 +80,7 @@ public class CollectorScreen extends AbstractContainerScreen<CollectorScreenHand
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(13, 77, CollectorScreenHandler.BAR_SIZE, 5, mouseX, mouseY)) {
-            long storedTime = TimeHelper.millisFromChronons(this.menu.getChrononAmount());
+            long storedTime = TimeHelper.millisFromChronons(this.menu.getEntity().getStoredChronons());
             guiGraphics.renderTooltip(Minecraft.getInstance().font, Component.translatable("tooltip.chronontech.storage.storedTime")
                     .withStyle(ChatFormatting.AQUA).append(Component.literal(TimeHelper.formatTime(storedTime))
                             .withStyle(ChatFormatting.GRAY)), mouseX, mouseY);

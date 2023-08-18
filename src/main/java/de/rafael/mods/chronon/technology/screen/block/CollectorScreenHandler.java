@@ -30,14 +30,15 @@ import de.rafael.mods.chronon.technology.registry.ModScreenHandlers;
 import de.rafael.mods.chronon.technology.screen.block.base.BaseContainerMenu;
 import de.rafael.mods.chronon.technology.screen.slot.TypeLockedSlot;
 import lombok.Getter;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -50,22 +51,26 @@ public class CollectorScreenHandler extends BaseContainerMenu {
 
     public static final int BAR_SIZE = 132;
 
+    private final CollectorBlockEntity entity;
     private final Container container;
     private final ContainerData containerData;
 
-    public CollectorScreenHandler(int syncId, Inventory inventory) {
-        this(syncId, inventory, new SimpleContainer(CollectorBlockEntity.INVENTORY_SIZE), new SimpleContainerData(CollectorBlockEntity.SYNC_AMOUNT));
+    public CollectorScreenHandler(int syncId, Inventory inventory, @NotNull FriendlyByteBuf byteBuf) {
+        this(syncId, inventory, inventory.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(CollectorBlockEntity.Data.SYNC_AMOUNT));
     }
 
-    public CollectorScreenHandler(int syncId, @NotNull Inventory inventory, Container container, ContainerData containerData) {
+    public CollectorScreenHandler(int syncId, @NotNull Inventory inventory, BlockEntity entity, ContainerData containerData) {
         super(ModScreenHandlers.CHRONON_COLLECTOR, syncId);
-        checkContainerSize(container, CollectorBlockEntity.INVENTORY_SIZE);
-        this.container = container;
+        checkContainerSize(((Container) entity), CollectorBlockEntity.Data.INVENTORY_SIZE);
+        this.entity = ((CollectorBlockEntity) entity);
+        this.container = this.entity;
+
+        // Container things
         inventory.startOpen(inventory.player);
         this.containerData = containerData;
 
-        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.PLATING_SLOT, 80, 52, PlatingItem.class));
-        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.STORAGE_SLOT, 152, 72, AcceleratorItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.Data.PLATING_SLOT, 80, 52, PlatingItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.Data.STORAGE_SLOT, 152, 72, AcceleratorItem.class));
 
         addPlayerInventory(inventory, 162, 104);
 
@@ -73,15 +78,11 @@ public class CollectorScreenHandler extends BaseContainerMenu {
     }
 
     public boolean isCollecting() {
-        return this.containerData.get(CollectorBlockEntity.PROGRESS_SYNC_ID) > 0;
-    }
-
-    public int getChrononAmount() {
-        return this.containerData.get(CollectorBlockEntity.STORED_CHRONONS_SYNC_ID);
+        return this.containerData.get(0) > 0;
     }
 
     public int scaledBarSize() {
-        int chronons = this.containerData.get(CollectorBlockEntity.STORED_CHRONONS_SYNC_ID);
+        long chronons = this.entity.getStoredChronons();
         double a = chronons * (double)BAR_SIZE;
         a /= CollectorBlockEntity.MAX_STORAGE_SIZE;
         return (int) a;

@@ -45,11 +45,9 @@ import org.jetbrains.annotations.Nullable;
 @Getter
 public class ChrononStorageItem extends ItemWithDescription {
 
-    public static final int CORE_MAX_STORAGE_SIZE = 86400;
+    private final long maxStorageSize;
 
-    private final int maxStorageSize;
-
-    public ChrononStorageItem(int maxStorageSize, Properties properties) {
+    public ChrononStorageItem(long maxStorageSize, Properties properties) {
         super(properties, Constants.Components.STORAGE_DESCRIPTION);
         this.maxStorageSize = maxStorageSize;
     }
@@ -79,23 +77,23 @@ public class ChrononStorageItem extends ItemWithDescription {
         return Math.round(13f - 13f * (1 - (getChronons(itemStack) / (float)maxStorageSize)));
     }
 
-    public int getChronons(@NotNull ItemStack itemStack) {
-        return itemStack.getOrCreateTag().getInt(NbtKeys.STORED_CHRONONS.getKey());
+    public long getChronons(@NotNull ItemStack itemStack) {
+        return itemStack.getOrCreateTag().getLong(NbtKeys.STORED_CHRONONS.getKey());
     }
 
-    public void setChronons(@NotNull ItemStack itemStack, int amount) {
-        itemStack.getOrCreateTag().putInt(NbtKeys.STORED_CHRONONS.getKey(), amount);
+    public void setChronons(@NotNull ItemStack itemStack, long amount) {
+        itemStack.getOrCreateTag().putLong(NbtKeys.STORED_CHRONONS.getKey(), amount);
     }
 
-    public void removeChronons(ItemStack itemStack, int amount) {
+    public void removeChronons(ItemStack itemStack, long amount) {
         setChronons(itemStack, Math.max(0, getChronons(itemStack) - amount));
     }
 
-    public void addChronons(ItemStack itemStack, int amount) {
+    public void addChronons(ItemStack itemStack, long amount) {
         setChronons(itemStack, Math.min(this.maxStorageSize, getChronons(itemStack) + amount));
     }
 
-    public int getSpaceLeft(ItemStack storageStack, int maxAmount) {
+    public long getSpaceLeft(ItemStack storageStack, long maxAmount) {
         return Math.min(maxAmount, this.maxStorageSize - getChronons(storageStack));
     }
 

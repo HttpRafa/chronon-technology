@@ -53,7 +53,7 @@ public class CollectorBlock extends BaseMachineBlock {
     @Override
     public @NotNull InteractionResult use(BlockState blockState, @NotNull Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if(!level.isClientSide()) {
-            MenuProvider menuProvider = blockState.getMenuProvider(level, blockPos);
+            MenuProvider menuProvider = (CollectorBlockEntity)level.getBlockEntity(blockPos);
             if(menuProvider != null) {
                 player.openMenu(menuProvider);
             }
