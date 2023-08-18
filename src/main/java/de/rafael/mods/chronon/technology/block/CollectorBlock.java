@@ -25,6 +25,7 @@ package de.rafael.mods.chronon.technology.block;
 
 import de.rafael.mods.chronon.technology.block.base.BaseMachineBlock;
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -40,8 +41,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 /**
  * @author Rafael K.
