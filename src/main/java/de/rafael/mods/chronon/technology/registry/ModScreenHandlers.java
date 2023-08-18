@@ -44,7 +44,6 @@ public class ModScreenHandlers {
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ChrononTech.MOD_ID);
 
-
     public static final RegistryObject<MenuType<CollectorScreenHandler>> CHRONON_COLLECTOR =
             registerMenuType("chronon_collector", CollectorScreenHandler::new);
 

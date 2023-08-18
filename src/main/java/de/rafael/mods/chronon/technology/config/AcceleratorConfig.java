@@ -36,17 +36,24 @@ import com.teamresourceful.resourcefulconfig.common.config.EntryType;
 public final class AcceleratorConfig {
 
     @ConfigEntry(
-            id = "boostTime",
-            type = EntryType.INTEGER,
-            translation = "text.resourcefulconfig.chronontech.option.accelerator.boostTime"
-    )
-    public static int boostTime = 20 * 25; // 25 seconds
-
-    @ConfigEntry(
             id = "maxTickRate",
             type = EntryType.INTEGER,
             translation = "text.resourcefulconfig.chronontech.option.accelerator.maxTickRate"
     )
     public static int maxTickRate = 8; // 2^8
+
+    @ConfigEntry(
+            id = "boostTime",
+            type = EntryType.LONG,
+            translation = "text.resourcefulconfig.chronontech.option.accelerator.boostTime"
+    )
+    public static long boostTime = 20 * 25; // 25 seconds
+
+    @ConfigEntry(
+            id = "storageSize",
+            type = EntryType.LONG,
+            translation = "text.resourcefulconfig.chronontech.option.accelerator.storageSize"
+    )
+    public static long storageSize = 86400;
 
 }
