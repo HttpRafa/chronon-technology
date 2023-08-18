@@ -24,13 +24,17 @@
 package de.rafael.mods.chronon.technology.block.entity;
 
 import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntity;
+import de.rafael.mods.chronon.technology.client.network.PacketPlayInChrononSync;
+import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.item.PlatingItem;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.registry.ModBlockEntities;
+import de.rafael.mods.chronon.technology.registry.ModPackets;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
 import de.rafael.mods.chronon.technology.util.helper.CompactContainerData;
 import de.rafael.mods.chronon.technology.util.values.NbtKeys;
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -40,6 +44,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -48,42 +53,34 @@ import org.jetbrains.annotations.NotNull;
  */
 
 @Getter
+@Setter
 public class CollectorBlockEntity extends BaseMachineBlockEntity {
 
-    public static final int INVENTORY_SIZE = 2;
-
-    public static final int SYNC_AMOUNT = 2;
-    public static final int PROGRESS_SYNC_ID = 0;
-    public static final int STORED_CHRONONS_SYNC_ID = 1;
-
-    public static final int PLATING_SLOT = 0;
-    public static final int STORAGE_SLOT = 1;
-
-    public static final int MAX_STORAGE_SIZE = ChrononStorageItem.CORE_MAX_STORAGE_SIZE * 2;
+    public static final long MAX_STORAGE_SIZE = AcceleratorConfig.storageSize * 2;
 
     private final ContainerData containerData;
 
-    private int storedChronons = 0;
+    private boolean requiresSync = false;
     private int progress = 0;
+    private long storedChronons = 0;
 
     public CollectorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHRONON_COLLECTOR.get(), blockPos, blockState,
-                INVENTORY_SIZE, Component.translatable("screen.chronontech.collector"));
-        this.containerData = new CompactContainerData(SYNC_AMOUNT) {
+                Data.INVENTORY_SIZE, Component.translatable("screen.chronontech.collector"));
+        this.containerData = new CompactContainerData(Data.SYNC_AMOUNT) {
             @Override
             public int get(int i) {
-                return switch (i) {
-                    case PROGRESS_SYNC_ID -> progress;
-                    case STORED_CHRONONS_SYNC_ID -> storedChronons;
-                    default -> 0;
-                };
+                if(i == 0) {
+                    return progress;
+                } else {
+                    return 0;
+                }
             }
 
             @Override
             public void set(int i, int value) {
-                switch (i) {
-                    case PROGRESS_SYNC_ID -> progress = value;
-                    case STORED_CHRONONS_SYNC_ID -> storedChronons = value;
+                if (i == 0) {
+                    progress = value;
                 }
             }
         };
@@ -94,7 +91,7 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
         if(level.isClientSide()) return;
 
-        var platingStack = this.inventory.getStackInSlot(PLATING_SLOT);
+        var platingStack = this.inventory.getStackInSlot(Data.PLATING_SLOT);
         if(!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
             ticks++;
             if(item.getPlatingType().getEfficiency() < 0) {
@@ -105,14 +102,29 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
                 this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
             }
             setChanged(level, blockPos, blockState);
+            requiresSync = true;
         }
 
-        var storageStack = this.inventory.getStackInSlot(STORAGE_SLOT);
+        var storageStack = this.inventory.getStackInSlot(Data.STORAGE_SLOT);
         if(!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
-            int amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
+            long amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
             item.addChronons(storageStack, amount);
             this.storedChronons -= amount;
             setChanged(level, blockPos, blockState);
+            requiresSync = true;
+        }
+
+        syncChronons();
+    }
+
+    public void syncChronons() {
+        assert level != null;
+        if(level.isClientSide()) return;
+        if(requiresSync) {
+            requiresSync = false;
+
+            ModPackets.channel().send(PacketDistributor.ALL.noArg(),
+                    new PacketPlayInChrononSync(this.getBlockPos(), this.storedChronons));
         }
     }
 
@@ -124,13 +136,24 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.putInt(NbtKeys.STORED_CHRONONS.getKey(), storedChronons);
+        tag.putLong(NbtKeys.STORED_CHRONONS.getKey(), storedChronons);
     }
 
     @Override
     public void load(@NotNull CompoundTag tag) {
         super.load(tag);
-        this.storedChronons = tag.getInt(NbtKeys.STORED_CHRONONS.getKey());
+        this.storedChronons = tag.getLong(NbtKeys.STORED_CHRONONS.getKey());
+    }
+
+    public static class Data {
+
+        public static final int SYNC_AMOUNT = 1;
+
+        public static final int INVENTORY_SIZE = 2;
+
+        public static final int PLATING_SLOT = 0;
+        public static final int STORAGE_SLOT = 1;
+
     }
 
 }

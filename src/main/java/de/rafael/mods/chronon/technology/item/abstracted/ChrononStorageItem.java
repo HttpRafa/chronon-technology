@@ -63,17 +63,17 @@ public class ChrononStorageItem extends ItemWithDescription {
     }
 
     @Override
-    public boolean isBarVisible(ItemStack itemStack) {
+    public boolean isBarVisible(@NotNull ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public int getBarColor(ItemStack itemStack) {
+    public int getBarColor(@NotNull ItemStack itemStack) {
         return GuiConfig.chrononColor;
     }
 
     @Override
-    public int getBarWidth(ItemStack itemStack) {
+    public int getBarWidth(@NotNull ItemStack itemStack) {
         return Math.round(13f - 13f * (1 - (getChronons(itemStack) / (float)maxStorageSize)));
     }
 

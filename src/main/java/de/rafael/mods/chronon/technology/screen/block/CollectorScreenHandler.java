@@ -55,17 +55,17 @@ public class CollectorScreenHandler extends BaseContainerMenu {
     public static final int BAR_SIZE = 132;
 
     private final Level level;
-    private final CollectorBlockEntity blockEntity;
+    private final CollectorBlockEntity entity;
     private final ContainerData containerData;
 
     public CollectorScreenHandler(int syncId, Inventory inventory, @NotNull FriendlyByteBuf extraData) {
-        this(syncId, inventory, inventory.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(CollectorBlockEntity.SYNC_AMOUNT));
+        this(syncId, inventory, inventory.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(CollectorBlockEntity.Data.SYNC_AMOUNT));
     }
 
-    public CollectorScreenHandler(int syncId, @NotNull Inventory inventory, BlockEntity blockEntity, ContainerData containerData) {
+    public CollectorScreenHandler(int syncId, @NotNull Inventory inventory, BlockEntity entity, ContainerData containerData) {
         super(ModScreenHandlers.CHRONON_COLLECTOR.get(), syncId);
-        checkContainerSize(inventory, CollectorBlockEntity.INVENTORY_SIZE);
-        this.blockEntity = ((CollectorBlockEntity) blockEntity);
+        checkContainerSize(inventory, CollectorBlockEntity.Data.INVENTORY_SIZE);
+        this.entity = ((CollectorBlockEntity) entity);
         this.level = inventory.player.level();
         inventory.startOpen(inventory.player);
         this.containerData = containerData;
@@ -73,22 +73,18 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         addPlayerInventory(inventory, 162, 104);
         addDataSlots(containerData);
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new TypeLockedSlot(handler, CollectorBlockEntity.PLATING_SLOT, 80, 52, PlatingItem.class));
-            this.addSlot(new TypeLockedSlot(handler, CollectorBlockEntity.STORAGE_SLOT, 152, 72, AcceleratorItem.class));
+        this.entity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+            this.addSlot(new TypeLockedSlot(handler, CollectorBlockEntity.Data.PLATING_SLOT, 80, 52, PlatingItem.class));
+            this.addSlot(new TypeLockedSlot(handler, CollectorBlockEntity.Data.STORAGE_SLOT, 152, 72, AcceleratorItem.class));
         });
     }
 
     public boolean isCollecting() {
-        return this.containerData.get(CollectorBlockEntity.PROGRESS_SYNC_ID) > 0;
-    }
-
-    public int getChrononAmount() {
-        return this.containerData.get(CollectorBlockEntity.STORED_CHRONONS_SYNC_ID);
+        return this.containerData.get(0) > 0;
     }
 
     public int scaledBarSize() {
-        int chronons = this.containerData.get(CollectorBlockEntity.STORED_CHRONONS_SYNC_ID);
+        long chronons = this.entity.getStoredChronons();
         double a = chronons * (double)BAR_SIZE;
         a /= CollectorBlockEntity.MAX_STORAGE_SIZE;
         return (int) a;
@@ -100,9 +96,9 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         Slot slot = this.slots.get(invSlot);
         if(slot.hasItem()) {
             stack = slot.getItem().copy();
-            if(invSlot < this.blockEntity.getInventory().getSlots()) {
-                if(!this.moveItemStackTo(slot.getItem(), this.blockEntity.getInventory().getSlots(), this.slots.size(), true)) return ItemStack.EMPTY;
-            } else if(!this.moveItemStackTo(slot.getItem(), 0, this.blockEntity.getInventory().getSlots(), false)) return ItemStack.EMPTY;
+            if(invSlot < this.entity.getInventory().getSlots()) {
+                if(!this.moveItemStackTo(slot.getItem(), this.entity.getInventory().getSlots(), this.slots.size(), true)) return ItemStack.EMPTY;
+            } else if(!this.moveItemStackTo(slot.getItem(), 0, this.entity.getInventory().getSlots(), false)) return ItemStack.EMPTY;
             if(slot.getItem().isEmpty()) slot.set(ItemStack.EMPTY);
             else slot.setChanged();
         }
@@ -111,7 +107,7 @@ public class CollectorScreenHandler extends BaseContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.CHRONON_COLLECTOR.get());
+        return stillValid(ContainerLevelAccess.create(level, entity.getBlockPos()), player, ModBlocks.CHRONON_COLLECTOR.get());
     }
 
 }

@@ -73,7 +73,7 @@ public class CollectorScreen extends AbstractContainerScreen<CollectorScreenHand
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderTooltip(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(13, 77, CollectorScreenHandler.BAR_SIZE, 5, mouseX, mouseY)) {
