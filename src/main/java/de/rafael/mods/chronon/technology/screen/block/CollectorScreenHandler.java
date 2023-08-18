@@ -79,10 +79,6 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         });
     }
 
-    public boolean isCollecting() {
-        return this.containerData.get(0) > 0;
-    }
-
     public int scaledBarSize() {
         long chronons = this.entity.getStoredChronons();
         double a = chronons * (double)BAR_SIZE;
