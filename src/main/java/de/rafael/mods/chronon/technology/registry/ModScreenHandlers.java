@@ -25,8 +25,15 @@ package de.rafael.mods.chronon.technology.registry;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
+import de.rafael.mods.chronon.technology.screen.block.base.BaseContainerMenu;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Rafael K.
@@ -35,7 +42,13 @@ import net.minecraft.world.inventory.MenuType;
 
 public class ModScreenHandlers {
 
-    public static final MenuType<CollectorScreenHandler> CHRONON_COLLECTOR = new MenuType<>(CollectorScreenHandler::new, FeatureFlags.VANILLA_SET);
+    public static final MenuType<CollectorScreenHandler> CHRONON_COLLECTOR = registerMenuType("chronon_collector", CollectorScreenHandler::new, FeatureFlags.VANILLA_SET);
+
+    private static <T extends AbstractContainerMenu> @NotNull MenuType<T> registerMenuType(String id, MenuType.MenuSupplier<T> supplier, FeatureFlagSet featureFlagSet) {
+        MenuType<T> menuType = new MenuType<>(supplier, featureFlagSet);
+        Registry.register(BuiltInRegistries.MENU, new ResourceLocation(ChrononTech.MOD_ID, id), menuType);
+        return menuType;
+    }
 
     public static void register() {
         ChrononTech.LOGGER.info("[REGISTRY] Adding screen handlers");
