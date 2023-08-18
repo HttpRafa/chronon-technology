@@ -26,6 +26,8 @@ package de.rafael.mods.chronon.technology.block;
 import de.rafael.mods.chronon.technology.block.base.BaseMachineBlock;
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -39,12 +41,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * @author Rafael K.
  * @since 08/08/2023
  */
 
 public class CollectorBlock extends BaseMachineBlock {
+
+    public static final List<BlockPos> OFFSETS = BlockPos.betweenClosedStream(-2, 0, -2, 2, 1, 2).filter((blockPos) -> Math.abs(blockPos.getX()) == 2 || Math.abs(blockPos.getZ()) == 2).map(BlockPos::immutable).toList();
+    public static final int PARTICLE_POSSIBILITY = 128;
 
     public CollectorBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion());
@@ -59,6 +66,17 @@ public class CollectorBlock extends BaseMachineBlock {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+        super.animateTick(blockState, level, blockPos, randomSource);
+
+        if(level.getBlockEntity(blockPos) instanceof CollectorBlockEntity entity && entity.isCollecting()) {
+            OFFSETS.forEach(sourcePos -> {
+                if(randomSource.nextInt(PARTICLE_POSSIBILITY) == 0) level.addParticle(ParticleTypes.PORTAL, (double)blockPos.getX() + 0.5, (double)blockPos.getY() + 1f, (double)blockPos.getZ() + 0.5, (double)((float)sourcePos.getX() + randomSource.nextFloat()) - 0.5, (float)sourcePos.getY() - randomSource.nextFloat() + 0.85F, (double)((float)sourcePos.getZ() + randomSource.nextFloat()) - 0.5);
+            });
+        }
     }
 
     /* Block entity */

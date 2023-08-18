@@ -97,31 +97,35 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     private int ticks = 0;
     @Override
     public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
-        if(level.isClientSide()) return;
+        if (!level.isClientSide()) {
+            // Server
 
-        var platingStack = getItem(Data.PLATING_SLOT);
-        if(!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
-            ticks++;
-            if(item.getPlatingType().getEfficiency() < 0) {
-                this.storedChronons = MAX_STORAGE_SIZE;
-                this.ticks = 0;
-            } else if(ticks >= item.getPlatingType().getTicksPerChronon()) {
-                this.ticks = 0;
-                this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
+            var platingStack = getItem(Data.PLATING_SLOT);
+            if (!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
+                ticks++;
+                if (item.getPlatingType().getEfficiency() < 0) {
+                    this.storedChronons = MAX_STORAGE_SIZE;
+                    this.ticks = 0;
+                } else if (ticks >= item.getPlatingType().getTicksPerChronon()) {
+                    this.ticks = 0;
+                    this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
+                }
+                setChanged(level, blockPos, blockState);
+                requiresSync = true;
             }
-            setChanged(level, blockPos, blockState);
-            requiresSync = true;
-        }
 
-        var storageStack = getItem(Data.STORAGE_SLOT);
-        if(!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
-            long amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
-            item.addChronons(storageStack, amount);
-            this.storedChronons -= amount;
-            setChanged(level, blockPos, blockState);
-            requiresSync = true;
+            var storageStack = getItem(Data.STORAGE_SLOT);
+            if (!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
+                long amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
+                item.addChronons(storageStack, amount);
+                this.storedChronons -= amount;
+                setChanged(level, blockPos, blockState);
+                requiresSync = true;
+            }
+            syncChronons();
+        } else {
+            // Client
         }
-        syncChronons();
     }
 
     public void syncChronons() {
@@ -135,6 +139,10 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
             byteBuf.writeLong(this.storedChronons);
             NetworkHelper.broadCast(ModPackets.Client.CHRONON_SYNC, (ServerLevel) this.getLevel(), this.getBlockPos(), byteBuf);
         }
+    }
+
+    public boolean isCollecting() {
+        return this.progress > 0;
     }
 
     @Override
