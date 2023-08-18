@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TimeHelper {
 
-    public static long millisFromChronons(int chronons) {
+    public static long millisFromChronons(long chronons) {
         return (chronons * 20L) * (1000 / 20);
     }
 

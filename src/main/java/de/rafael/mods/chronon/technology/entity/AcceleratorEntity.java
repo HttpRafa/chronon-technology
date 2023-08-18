@@ -55,7 +55,7 @@ public class AcceleratorEntity extends Entity {
 
     private static final EntityDataAccessor<Integer> tickRate = SynchedEntityData.defineId(AcceleratorEntity.class, EntityDataSerializers.INT);
 
-    private int ticksLeft;
+    private long ticksLeft;
     private BlockPos blockPos;
 
     //TODO: Remove animation fields
@@ -131,6 +131,7 @@ public class AcceleratorEntity extends Entity {
         }
     }
 
+    @Deprecated(forRemoval = true)
     public float calcDelta() {
         float deltaTime = (System.currentTimeMillis() - lastRenderTime) / 1000f;
         lastRenderTime = System.currentTimeMillis();
@@ -145,14 +146,14 @@ public class AcceleratorEntity extends Entity {
     @Override
     protected void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         entityData.set(tickRate, compoundTag.getInt(Constants.NbtKeys.TICK_RATE));
-        this.ticksLeft = compoundTag.getInt(Constants.NbtKeys.TICKS_LEFT);
+        this.ticksLeft = compoundTag.getLong(Constants.NbtKeys.TICKS_LEFT);
         this.blockPos = NbtUtils.readBlockPos(compoundTag.getCompound(Constants.NbtKeys.BLOCK_POS));
     }
 
     @Override
     protected void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         compoundTag.putInt(Constants.NbtKeys.TICK_RATE, entityData.get(tickRate));
-        compoundTag.putInt(Constants.NbtKeys.TICKS_LEFT, this.ticksLeft);
+        compoundTag.putLong(Constants.NbtKeys.TICKS_LEFT, this.ticksLeft);
         compoundTag.put(Constants.NbtKeys.BLOCK_POS, NbtUtils.writeBlockPos(this.blockPos));
     }
 
