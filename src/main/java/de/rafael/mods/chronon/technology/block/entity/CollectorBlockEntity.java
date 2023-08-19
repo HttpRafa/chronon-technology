@@ -60,7 +60,6 @@ import org.jetbrains.annotations.Nullable;
  */
 
 @Getter
-@Setter
 public class CollectorBlockEntity extends BaseMachineBlockEntity {
 
     public static final long MAX_STORAGE_SIZE = AcceleratorConfig.storageSize * 2;
@@ -69,6 +68,8 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
 
     private boolean requiresSync = false;
     private int progress = 0;
+
+    @Setter
     private long storedChronons = 0;
 
     public CollectorBlockEntity(BlockPos blockPos, BlockState blockState) {

@@ -31,7 +31,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -59,9 +58,11 @@ public class CollectorBlock extends BaseMachineBlock {
     @Override
     public @NotNull InteractionResult use(BlockState blockState, @NotNull Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if(!level.isClientSide()) {
-            MenuProvider menuProvider = (CollectorBlockEntity)level.getBlockEntity(blockPos);
-            if(menuProvider != null) {
-                player.openMenu(menuProvider);
+            BlockEntity blockEntity = level.getBlockEntity(blockPos);
+            if(blockEntity instanceof CollectorBlockEntity entity) {
+                player.openMenu(entity);
+            } else {
+                throw new IllegalStateException("Container provider is missing");
             }
         }
         return InteractionResult.SUCCESS;
