@@ -110,7 +110,7 @@ public class AcceleratorItem extends ChrononStorageItem {
     }
 
     private void playSound(@NotNull Level level, BlockPos blockPos, int rate) {
-        level.playSound(null, blockPos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS, 0.5f, Constants.Sounds.SOUND_SUPPLIER.apply(rate));
+        level.playSound(null, blockPos, SoundEvents.NOTE_BLOCK_PLING, SoundSource.BLOCKS, 0.5f, Constants.Sounds.SOUND_SUPPLIER.apply(rate));
     }
 
 }

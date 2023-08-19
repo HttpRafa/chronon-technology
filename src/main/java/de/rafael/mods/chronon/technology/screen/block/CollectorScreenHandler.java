@@ -59,14 +59,14 @@ public class CollectorScreenHandler extends BaseContainerMenu {
     private final ContainerData containerData;
 
     public CollectorScreenHandler(int syncId, Inventory inventory, @NotNull FriendlyByteBuf extraData) {
-        this(syncId, inventory, inventory.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(CollectorBlockEntity.Data.SYNC_AMOUNT));
+        this(syncId, inventory, inventory.player.getLevel().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(CollectorBlockEntity.Data.SYNC_AMOUNT));
     }
 
     public CollectorScreenHandler(int syncId, @NotNull Inventory inventory, BlockEntity entity, ContainerData containerData) {
         super(ModScreenHandlers.CHRONON_COLLECTOR.get(), syncId);
         checkContainerSize(inventory, CollectorBlockEntity.Data.INVENTORY_SIZE);
         this.entity = ((CollectorBlockEntity) entity);
-        this.level = inventory.player.level();
+        this.level = inventory.player.getLevel();
         inventory.startOpen(inventory.player);
         this.containerData = containerData;
 
