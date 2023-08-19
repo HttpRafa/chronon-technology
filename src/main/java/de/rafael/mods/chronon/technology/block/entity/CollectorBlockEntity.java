@@ -128,6 +128,10 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
         }
     }
 
+    public boolean isCollecting() {
+        return this.containerData.get(0) > 0;
+    }
+
     @Override
     public AbstractContainerMenu createMenu(int syncId, @NotNull Inventory inventory, @NotNull Player player) {
         return new CollectorScreenHandler(syncId, inventory, this, this.containerData);
