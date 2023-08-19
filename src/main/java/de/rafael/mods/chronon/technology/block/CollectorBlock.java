@@ -25,7 +25,11 @@ package de.rafael.mods.chronon.technology.block;
 
 import de.rafael.mods.chronon.technology.block.base.BaseMachineBlock;
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
+import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -35,6 +39,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -66,7 +71,7 @@ public class CollectorBlock extends BaseMachineBlock {
     }
 
     @Override
-    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+    public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
         super.animateTick(blockState, level, blockPos, randomSource);
 
         if(level.getBlockEntity(blockPos) instanceof CollectorBlockEntity entity && entity.isCollecting()) {
