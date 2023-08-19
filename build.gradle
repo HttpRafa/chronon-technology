@@ -4,7 +4,8 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'com.diffplug.spotless' version '6.20.0'
+	id "com.modrinth.minotaur" version '2.+'
+	id 'com.diffplug.spotless' version '6.20.0'
 }
 
 version = mod_version
@@ -205,6 +206,24 @@ tasks.named('jar', Jar).configure {
 // }
 
 // Example configuration to allow publishing using the maven-publish plugin
+
+// Configure the modrinth publication
+modrinth {
+	token = System.getenv("MODRINTH_TOKEN")
+	projectId = "${mod_project_id}"
+	versionType = "${mod_version_type}"
+	uploadFile = jar
+	gameVersions = ["${minecraft_version}"]
+	dependencies {
+		required.project "resourceful-config"
+	}
+
+	syncBodyFrom = rootProject.file("README.md").text;
+}
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
+
+// Configure the maven publication
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
