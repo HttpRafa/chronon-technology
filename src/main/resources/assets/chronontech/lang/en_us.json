@@ -2,6 +2,7 @@
   "text.resourcefulconfig.chronontech.option.gui": "GUI",
   "text.resourcefulconfig.chronontech.option.gui.chrononColor": "Chronon Color",
   "text.resourcefulconfig.chronontech.option.accelerator": "Accelerator",
+  "text.resourcefulconfig.chronontech.option.accelerator.efficiency": "Efficiency [20 = 1 to 1]",
   "text.resourcefulconfig.chronontech.option.accelerator.boostTime": "Boost Time",
   "text.resourcefulconfig.chronontech.option.accelerator.maxTickRate": "Max Tick Rate [2^n]",
   "category.chronon_technology": "Chronon Technology",
