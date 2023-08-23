@@ -24,7 +24,7 @@
 package de.rafael.mods.chronon.technology.entity;
 
 import de.rafael.mods.chronon.technology.registry.ModEntities;
-import de.rafael.mods.chronon.technology.util.values.Constants;
+import de.rafael.mods.chronon.technology.util.values.NbtKey;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -147,16 +147,16 @@ public class AcceleratorEntity extends Entity {
 
     @Override
     protected void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        entityData.set(tickRate, compoundTag.getInt(Constants.NbtKeys.TICK_RATE));
-        this.ticksLeft = compoundTag.getLong(Constants.NbtKeys.TICKS_LEFT);
-        this.blockPos = NbtUtils.readBlockPos(compoundTag.getCompound(Constants.NbtKeys.BLOCK_POS));
+        entityData.set(tickRate, compoundTag.getInt(NbtKey.TICK_RATE.getKey()));
+        this.ticksLeft = compoundTag.getLong(NbtKey.TICKS_LEFT.getKey());
+        this.blockPos = NbtUtils.readBlockPos(compoundTag.getCompound(NbtKey.BLOCK_POS.getKey()));
     }
 
     @Override
     protected void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        compoundTag.putInt(Constants.NbtKeys.TICK_RATE, entityData.get(tickRate));
-        compoundTag.putLong(Constants.NbtKeys.TICKS_LEFT, this.ticksLeft);
-        compoundTag.put(Constants.NbtKeys.BLOCK_POS, NbtUtils.writeBlockPos(this.blockPos));
+        compoundTag.putInt(NbtKey.TICK_RATE.getKey(), entityData.get(tickRate));
+        compoundTag.putLong(NbtKey.TICKS_LEFT.getKey(), this.ticksLeft);
+        compoundTag.put(NbtKey.BLOCK_POS.getKey(), NbtUtils.writeBlockPos(this.blockPos));
     }
 
     @Override

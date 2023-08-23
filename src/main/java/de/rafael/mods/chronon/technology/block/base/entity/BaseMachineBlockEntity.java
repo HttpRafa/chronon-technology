@@ -23,7 +23,7 @@
  */
 package de.rafael.mods.chronon.technology.block.base.entity;
 
-import de.rafael.mods.chronon.technology.block.base.interfaces.Tickable;
+import de.rafael.mods.chronon.technology.block.base.interfaces.TickExecutor;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -49,7 +49,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 @Setter
-public abstract class BaseMachineBlockEntity extends BlockEntity implements Tickable, MenuProvider {
+public abstract class BaseMachineBlockEntity extends BlockEntity implements TickExecutor, MenuProvider {
 
     protected final ItemStackHandler inventory;
     protected final Component displayName;

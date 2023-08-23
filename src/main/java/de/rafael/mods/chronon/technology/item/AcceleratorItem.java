@@ -82,7 +82,7 @@ public class AcceleratorItem extends ChrononStorageItem {
 
             rate = rate * 2; // Increment current rate
             ticks = ticks / 2; // Add additional ticks to the old time
-            long cost = player.isCreative() ? 0 : (rate / 2) * ((accelerator.getTicksLeft() + ticks) / 20L);
+            long cost = player.isCreative() ? 0 : (rate / 2) * ((accelerator.getTicksLeft() + ticks) / AcceleratorConfig.efficiency);
             if(cost > getChronons(useOnContext.getItemInHand())) { playMissingSound(player); return; }
 
             accelerator.setTickRate(rate);
@@ -91,7 +91,7 @@ public class AcceleratorItem extends ChrononStorageItem {
             removeChronons(useOnContext.getItemInHand(), cost);
             playSound(level, blockPos, rate);
         }, () -> {
-            long cost = player.isCreative() ? 0 : (AcceleratorConfig.boostTime / 20L);
+            long cost = player.isCreative() ? 0 : (AcceleratorConfig.boostTime / AcceleratorConfig.efficiency);
             if(cost > getChronons(useOnContext.getItemInHand())) { playMissingSound(player); return; }
 
             AcceleratorEntity accelerator = new AcceleratorEntity(level, blockPos);
