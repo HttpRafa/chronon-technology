@@ -26,9 +26,8 @@ package de.rafael.mods.chronon.technology.data.loot;
 import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
 import de.rafael.mods.chronon.technology.block.base.interfaces.BlockEntityHolder;
 import de.rafael.mods.chronon.technology.registry.ModBlocks;
-import java.util.Set;
-
 import de.rafael.mods.chronon.technology.util.values.NbtKey;
+import java.util.Set;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;

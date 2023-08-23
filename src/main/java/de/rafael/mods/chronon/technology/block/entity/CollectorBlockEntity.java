@@ -34,6 +34,7 @@ import de.rafael.mods.chronon.technology.registry.ModPackets;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
 import de.rafael.mods.chronon.technology.util.helper.CompactContainerData;
 import de.rafael.mods.chronon.technology.util.values.NbtKey;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -47,8 +48,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 /**
  * @author Rafael K.
