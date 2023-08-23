@@ -5,6 +5,7 @@
   "text.resourcefulconfig.chronontech.option.accelerator.efficiency": "Efficiency [20 = 1 to 1]",
   "text.resourcefulconfig.chronontech.option.accelerator.boostTime": "Boost Time",
   "text.resourcefulconfig.chronontech.option.accelerator.maxTickRate": "Max Tick Rate [2^n]",
+  "text.resourcefulconfig.chronontech.option.accelerator.storageSize": "Storage Size",
   "category.chronon_technology": "Chronon Technology",
   "item.chronontech.chronon_core": "Chronon Core",
   "item.chronontech.chronon_accelerator": "Chronon Accelerator",
