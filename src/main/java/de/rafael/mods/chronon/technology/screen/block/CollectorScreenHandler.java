@@ -26,6 +26,7 @@ package de.rafael.mods.chronon.technology.screen.block;
 import de.rafael.mods.chronon.technology.block.entity.CollectorBlockEntity;
 import de.rafael.mods.chronon.technology.item.AcceleratorItem;
 import de.rafael.mods.chronon.technology.item.PlatingItem;
+import de.rafael.mods.chronon.technology.item.TimeChangerItem;
 import de.rafael.mods.chronon.technology.registry.ModScreenHandlers;
 import de.rafael.mods.chronon.technology.screen.block.base.BaseContainerMenu;
 import de.rafael.mods.chronon.technology.screen.slot.TypeLockedSlot;
@@ -56,7 +57,8 @@ public class CollectorScreenHandler extends BaseContainerMenu {
     private final ContainerData containerData;
 
     public CollectorScreenHandler(int syncId, Inventory inventory, @NotNull FriendlyByteBuf byteBuf) {
-        this(syncId, inventory, inventory.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(CollectorBlockEntity.Data.SYNC_AMOUNT));
+        this(syncId, inventory, inventory.player.level().getBlockEntity(byteBuf.readBlockPos()),
+                new SimpleContainerData(CollectorBlockEntity.Data.SYNC_AMOUNT));
     }
 
     public CollectorScreenHandler(int syncId, @NotNull Inventory inventory, BlockEntity entity, ContainerData containerData) {
@@ -69,8 +71,10 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         inventory.startOpen(inventory.player);
         this.containerData = containerData;
 
-        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.Data.PLATING_SLOT, 80, 52, PlatingItem.class));
-        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.Data.STORAGE_SLOT, 152, 72, AcceleratorItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.Data.PLATING_SLOT, 80, 52,
+                PlatingItem.class));
+        this.addSlot(new TypeLockedSlot(container, CollectorBlockEntity.Data.STORAGE_SLOT, 152, 72,
+                AcceleratorItem.class, TimeChangerItem.class));
 
         addPlayerInventory(inventory, 162, 104);
 

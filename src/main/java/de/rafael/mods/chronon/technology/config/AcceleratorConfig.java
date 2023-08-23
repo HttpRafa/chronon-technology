@@ -43,6 +43,13 @@ public final class AcceleratorConfig {
     public static int maxTickRate = 8; // 2^8
 
     @ConfigEntry(
+            id = "efficiency",
+            type = EntryType.LONG,
+            translation = "text.resourcefulconfig.chronontech.option.accelerator.efficiency"
+    )
+    public static long efficiency = 18;
+
+    @ConfigEntry(
             id = "boostTime",
             type = EntryType.LONG,
             translation = "text.resourcefulconfig.chronontech.option.accelerator.boostTime"

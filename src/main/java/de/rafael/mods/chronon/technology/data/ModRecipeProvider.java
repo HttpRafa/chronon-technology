@@ -75,6 +75,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(FabricRecipeProvider.getHasName(Items.REDSTONE_BLOCK), FabricRecipeProvider.has(Items.REDSTONE_BLOCK))
                 .unlockedBy(FabricRecipeProvider.getHasName(ModItems.CHRONON_CORE), FabricRecipeProvider.has(ModItems.CHRONON_CORE))
                 .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModItems.CHRONON_ACCELERATOR)));
+
+        // Blocks
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModBlocks.CHRONON_COLLECTOR)
                 .group("chronon")
                 .pattern("OGO").pattern("CER").pattern("OBO")
@@ -92,7 +94,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(FabricRecipeProvider.getHasName(ModItems.CHRONON_CORE), FabricRecipeProvider.has(ModItems.CHRONON_CORE))
                 .save(exporter, new ResourceLocation(FabricRecipeProvider.getSimpleRecipeName(ModBlocks.CHRONON_COLLECTOR)));
 
-        /* Plating */
+        // Plating
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.IRON_PLATING)
                 .group("chronon")
                 .pattern("BIB").pattern("IGI").pattern("BIB")

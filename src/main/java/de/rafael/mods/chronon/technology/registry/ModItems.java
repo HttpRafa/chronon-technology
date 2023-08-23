@@ -26,6 +26,7 @@ package de.rafael.mods.chronon.technology.registry;
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.item.AcceleratorItem;
 import de.rafael.mods.chronon.technology.item.PlatingItem;
+import de.rafael.mods.chronon.technology.item.TimeChangerItem;
 import de.rafael.mods.chronon.technology.item.abstracted.ItemWithDescription;
 import de.rafael.mods.chronon.technology.types.PlatingType;
 import de.rafael.mods.chronon.technology.util.values.Constants;
@@ -47,6 +48,8 @@ public class ModItems {
             new ItemWithDescription(new Item.Properties().stacksTo(1), Constants.Components.CORE_DESCRIPTION));
     public static final Item CHRONON_ACCELERATOR = registerItem("chronon_accelerator",
             new AcceleratorItem());
+    public static final Item TIME_CHANGER = registerItem("time_changer",
+            new TimeChangerItem());
 
     /* Plating */
     public static final Item IRON_PLATING = registerItem("iron_plating",

@@ -25,6 +25,7 @@ package de.rafael.mods.chronon.technology.registry;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.item.AcceleratorItem;
+import de.rafael.mods.chronon.technology.item.TimeChangerItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -51,6 +52,8 @@ public class ModTabs {
                 /* Primary Items */
                 output.accept(ModItems.CHRONON_ACCELERATOR);
                 output.accept(AcceleratorItem.fullyChargedStack());
+                output.accept(ModItems.TIME_CHANGER);
+                output.accept(TimeChangerItem.fullyChargedStack());
 
                 /* Ingredients */
                 output.accept(ModItems.CHRONON_CORE);
