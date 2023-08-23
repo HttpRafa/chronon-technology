@@ -60,7 +60,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             CopyNbtFunction.Builder builder = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
             BlockEntity dummyEntity = holder.createDummyEntity();
             if(dummyEntity instanceof AttributeHolder attributeHolder) {
-                attributeHolder.getNbtKeys().forEach(nbtKey -> builder.copy(nbtKey.getKey(), NbtKey.STORED_DATA + "." + nbtKey.getKey()));
+                attributeHolder.getNbtKeys().forEach(nbtKey -> builder.copy(nbtKey.getKey(), NbtKey.BLOCK_ENTITY_TAG + "." + nbtKey.getKey()));
             }
             add(block, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1f)).add(LootItem.lootTableItem(block).apply(builder))));
         }

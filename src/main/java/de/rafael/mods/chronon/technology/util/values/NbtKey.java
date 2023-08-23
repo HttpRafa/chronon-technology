@@ -42,7 +42,7 @@ public enum NbtKey {
 
     ITEMS("Items");
 
-    public static final String STORED_DATA = "StoredData";
+    public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
 
     private final String key;
 

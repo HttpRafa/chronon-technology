@@ -13,12 +13,12 @@
                 {
                   "op": "replace",
                   "source": "StoredChronons",
-                  "target": "StoredData.StoredChronons"
+                  "target": "BlockEntityTag.StoredChronons"
                 },
                 {
                   "op": "replace",
                   "source": "Items",
-                  "target": "StoredData.Items"
+                  "target": "BlockEntityTag.Items"
                 }
               ],
               "source": "block_entity"
