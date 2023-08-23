@@ -24,16 +24,22 @@
 package de.rafael.mods.chronon.technology.block.base.interfaces;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-/**
- * @author Rafael K.
- * @since 08/08/2023
- */
+public interface BlockEntityHolder<E extends BlockEntity> extends EntityBlock {
 
-public interface Tickable {
+    default E createDummyEntity() {
+        Block block = (Block) this;
+        return createDummyEntity(block.defaultBlockState());
+    }
 
-    void tick(Level level, BlockPos blockPos, BlockState blockState);
+    default E createDummyEntity(BlockState blockState) {
+        return newBlockEntity(BlockPos.ZERO, blockState);
+    }
+
+    E newBlockEntity(BlockPos blockPos, BlockState blockState);
 
 }

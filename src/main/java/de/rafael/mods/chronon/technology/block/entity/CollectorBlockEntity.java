@@ -23,6 +23,8 @@
  */
 package de.rafael.mods.chronon.technology.block.entity;
 
+import de.rafael.mods.chronon.technology.ChrononTech;
+import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
 import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntity;
 import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.item.PlatingItem;
@@ -32,7 +34,8 @@ import de.rafael.mods.chronon.technology.registry.ModBlockEntities;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
 import de.rafael.mods.chronon.technology.util.helper.CompactContainerData;
 import de.rafael.mods.chronon.technology.util.helper.NetworkHelper;
-import de.rafael.mods.chronon.technology.util.values.NbtKeys;
+import de.rafael.mods.chronon.technology.util.values.NbtKey;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -60,7 +63,7 @@ import org.jetbrains.annotations.Nullable;
  */
 
 @Getter
-public class CollectorBlockEntity extends BaseMachineBlockEntity {
+public class CollectorBlockEntity extends BaseMachineBlockEntity implements AttributeHolder {
 
     public static final long MAX_STORAGE_SIZE = AcceleratorConfig.storageSize * 2;
 
@@ -96,36 +99,34 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
 
     private int ticks = 0;
     @Override
-    public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
-        if (!level.isClientSide()) {
-            // Server
-
-            var platingStack = getItem(Data.PLATING_SLOT);
-            if (!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
-                ticks++;
-                if (item.getPlatingType().getEfficiency() < 0) {
-                    this.storedChronons = MAX_STORAGE_SIZE;
-                    this.ticks = 0;
-                } else if (ticks >= item.getPlatingType().getTicksPerChronon()) {
-                    this.ticks = 0;
-                    this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
-                }
-                setChanged(level, blockPos, blockState);
-                requiresSync = true;
+    public void serverTick(Level level, BlockPos blockPos, BlockState blockState) {
+        var platingStack = getItem(Data.PLATING_SLOT);
+        if (!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
+            ticks++;
+            if (item.getPlatingType().getEfficiency() < 0) {
+                this.storedChronons = MAX_STORAGE_SIZE;
+                this.ticks = 0;
+            } else if (ticks >= item.getPlatingType().getTicksPerChronon()) {
+                this.ticks = 0;
+                this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
             }
-
-            var storageStack = getItem(Data.STORAGE_SLOT);
-            if (!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
-                long amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
-                item.addChronons(storageStack, amount);
-                this.storedChronons -= amount;
-                setChanged(level, blockPos, blockState);
-                requiresSync = true;
-            }
-            syncChronons();
-        } else {
-            // Client
+            setChanged(level, blockPos, blockState);
+            requiresSync = true;
         }
+
+        var storageStack = getItem(Data.STORAGE_SLOT);
+        if (!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
+            long amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
+            item.addChronons(storageStack, amount);
+            this.storedChronons -= amount;
+            setChanged(level, blockPos, blockState);
+            requiresSync = true;
+        }
+        syncChronons();
+    }
+
+    @Override
+    public void clientTick(Level level, BlockPos blockPos, BlockState blockState) {
     }
 
     public void syncChronons() {
@@ -159,14 +160,15 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     protected void saveAdditional(CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);
         ContainerHelper.saveAllItems(compoundTag, this.inventory);
-        compoundTag.putLong(NbtKeys.STORED_CHRONONS.getKey(), storedChronons);
+        compoundTag.putLong(NbtKey.STORED_CHRONONS.getKey(), storedChronons);
     }
 
     @Override
     public void load(CompoundTag compoundTag) {
         super.load(compoundTag);
+        ChrononTech.LOGGER.info(compoundTag.toString());
         ContainerHelper.loadAllItems(compoundTag, this.inventory);
-        this.storedChronons = compoundTag.getLong(NbtKeys.STORED_CHRONONS.getKey());
+        this.storedChronons = compoundTag.getLong(NbtKey.STORED_CHRONONS.getKey());
     }
 
     @Override
@@ -182,6 +184,11 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
         return false;
+    }
+
+    @Override
+    public List<NbtKey> getNbtKeys() {
+        return List.of(NbtKey.STORED_CHRONONS, NbtKey.ITEMS);
     }
 
     public static class Data {

@@ -3,14 +3,27 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "StoredChronons",
+                  "target": "StoredData.StoredChronons"
+                },
+                {
+                  "op": "replace",
+                  "source": "Items",
+                  "target": "StoredData.Items"
+                }
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "chronontech:chronon_collector"
         }
       ],
