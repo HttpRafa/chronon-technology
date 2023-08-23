@@ -23,10 +23,11 @@
  */
 package de.rafael.mods.chronon.technology.item.abstracted;
 
+import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
 import de.rafael.mods.chronon.technology.config.GuiConfig;
 import de.rafael.mods.chronon.technology.util.helper.TimeHelper;
 import de.rafael.mods.chronon.technology.util.values.Constants;
-import de.rafael.mods.chronon.technology.util.values.NbtKeys;
+import de.rafael.mods.chronon.technology.util.values.NbtKey;
 import java.util.List;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
@@ -43,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
  */
 
 @Getter
-public class ChrononStorageItem extends ItemWithDescription {
+public class ChrononStorageItem extends ItemWithDescription implements AttributeHolder {
 
     private final long maxStorageSize;
 
@@ -78,11 +79,11 @@ public class ChrononStorageItem extends ItemWithDescription {
     }
 
     public long getChronons(@NotNull ItemStack itemStack) {
-        return itemStack.getOrCreateTag().getLong(NbtKeys.STORED_CHRONONS.getKey());
+        return itemStack.getOrCreateTag().getLong(NbtKey.STORED_CHRONONS.getKey());
     }
 
     public void setChronons(@NotNull ItemStack itemStack, long amount) {
-        itemStack.getOrCreateTag().putLong(NbtKeys.STORED_CHRONONS.getKey(), amount);
+        itemStack.getOrCreateTag().putLong(NbtKey.STORED_CHRONONS.getKey(), amount);
     }
 
     public void removeChronons(ItemStack itemStack, long amount) {
@@ -95,6 +96,11 @@ public class ChrononStorageItem extends ItemWithDescription {
 
     public long getSpaceLeft(ItemStack storageStack, long maxAmount) {
         return Math.min(maxAmount, this.maxStorageSize - getChronons(storageStack));
+    }
+
+    @Override
+    public List<NbtKey> getNbtKeys() {
+        return List.of(NbtKey.STORED_CHRONONS);
     }
 
 }

@@ -23,7 +23,7 @@
  */
 package de.rafael.mods.chronon.technology.util.values;
 
-import de.rafael.mods.chronon.technology.ChrononTech;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -32,14 +32,18 @@ import lombok.Getter;
  */
 
 @Getter
-public enum NbtKeys {
+@AllArgsConstructor
+public enum NbtKey {
 
-    STORED_CHRONONS("storedChronons");
+    STORED_CHRONONS("StoredChronons"),
+    TICK_RATE("TickRate"),
+    TICKS_LEFT("TicksLeft"),
+    BLOCK_POS("BlockPos"),
+
+    ITEMS("Items");
+
+    public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
 
     private final String key;
-
-    NbtKeys(String key) {
-        this.key = ChrononTech.MOD_ID + "_" + key;
-    }
 
 }

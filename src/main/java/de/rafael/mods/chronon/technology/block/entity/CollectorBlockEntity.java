@@ -24,28 +24,35 @@
 package de.rafael.mods.chronon.technology.block.entity;
 
 import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntity;
-import de.rafael.mods.chronon.technology.client.network.PacketPlayInChrononSync;
 import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.item.PlatingItem;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
+import de.rafael.mods.chronon.technology.network.ModPackets;
 import de.rafael.mods.chronon.technology.registry.ModBlockEntities;
-import de.rafael.mods.chronon.technology.registry.ModPackets;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
 import de.rafael.mods.chronon.technology.util.helper.CompactContainerData;
+import de.rafael.mods.chronon.technology.util.helper.NetworkHelper;
 import de.rafael.mods.chronon.technology.util.values.NbtKeys;
 import lombok.Getter;
 import lombok.Setter;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Rafael K.
@@ -53,7 +60,7 @@ import org.jetbrains.annotations.NotNull;
  */
 
 @Getter
-public class CollectorBlockEntity extends BaseMachineBlockEntity {
+public class CollectorBlockEntity extends BaseMachineBlockEntity implements AttributeHolder {
 
     public static final long MAX_STORAGE_SIZE = AcceleratorConfig.storageSize * 2;
 
@@ -89,16 +96,14 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
 
     private int ticks = 0;
     @Override
-    public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
-        if(level.isClientSide()) return;
-
+    public void serverTick(Level level, BlockPos blockPos, BlockState blockState) {
         var platingStack = this.inventory.getStackInSlot(Data.PLATING_SLOT);
-        if(!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
+        if (!platingStack.isEmpty() && platingStack.getItem() instanceof PlatingItem item) {
             ticks++;
-            if(item.getPlatingType().getEfficiency() < 0) {
+            if (item.getPlatingType().getEfficiency() < 0) {
                 this.storedChronons = MAX_STORAGE_SIZE;
                 this.ticks = 0;
-            } else if(ticks >= item.getPlatingType().getTicksPerChronon()) {
+            } else if (ticks >= item.getPlatingType().getTicksPerChronon()) {
                 this.ticks = 0;
                 this.storedChronons = Math.min(MAX_STORAGE_SIZE, ++this.storedChronons);
             }
@@ -107,15 +112,18 @@ public class CollectorBlockEntity extends BaseMachineBlockEntity {
         }
 
         var storageStack = this.inventory.getStackInSlot(Data.STORAGE_SLOT);
-        if(!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
+        if (!storageStack.isEmpty() && storageStack.getItem() instanceof ChrononStorageItem item) {
             long amount = Math.min(this.storedChronons, item.getSpaceLeft(storageStack, 20 * 60));
             item.addChronons(storageStack, amount);
             this.storedChronons -= amount;
             setChanged(level, blockPos, blockState);
             requiresSync = true;
         }
-
         syncChronons();
+    }
+
+    @Override
+    public void clientTick(Level level, BlockPos blockPos, BlockState blockState) {
     }
 
     public void syncChronons() {
