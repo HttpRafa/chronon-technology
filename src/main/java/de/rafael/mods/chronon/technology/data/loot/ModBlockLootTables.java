@@ -23,11 +23,22 @@
  */
 package de.rafael.mods.chronon.technology.data.loot;
 
+import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
+import de.rafael.mods.chronon.technology.block.base.interfaces.BlockEntityHolder;
 import de.rafael.mods.chronon.technology.registry.ModBlocks;
 import java.util.Set;
+
+import de.rafael.mods.chronon.technology.util.values.NbtKey;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +55,18 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(ModBlocks.CHRONON_COLLECTOR.get());
+        dropWithData(ModBlocks.CHRONON_COLLECTOR.get());
+    }
+
+    protected void dropWithData(Block block) {
+        if(block instanceof BlockEntityHolder<?> holder) {
+            CopyNbtFunction.Builder builder = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
+            BlockEntity dummyEntity = holder.createDummyEntity();
+            if(dummyEntity instanceof AttributeHolder attributeHolder) {
+                attributeHolder.getNbtKeys().forEach(nbtKey -> builder.copy(nbtKey.getKey(), NbtKey.BLOCK_ENTITY_TAG + "." + nbtKey.getKey()));
+            }
+            add(block, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1f)).add(LootItem.lootTableItem(block).apply(builder))));
+        }
     }
 
     @Override

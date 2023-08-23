@@ -23,11 +23,8 @@
  */
 package de.rafael.mods.chronon.technology.block.base;
 
-import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntity;
-import de.rafael.mods.chronon.technology.block.base.interfaces.Tickable;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Containers;
+import de.rafael.mods.chronon.technology.block.base.interfaces.BlockEntityHolder;
+import de.rafael.mods.chronon.technology.block.base.interfaces.TickExecutor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -56,7 +53,7 @@ public abstract class BaseMachineBlock<E extends BlockEntity> extends BaseEntity
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
         return (tickLevel, tickPos, tickState, tickEntity) -> {
             if(tickLevel.isClientSide()) ((TickExecutor) tickEntity).clientTick(tickLevel, tickPos, tickState);
             else ((TickExecutor) tickEntity).serverTick(tickLevel, tickPos, tickState);

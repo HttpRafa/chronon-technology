@@ -40,7 +40,7 @@ public enum NbtKey {
     TICKS_LEFT("TicksLeft"),
     BLOCK_POS("BlockPos"),
 
-    ITEMS("Items");
+    INVENTORY("inventory");
 
     public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
 
