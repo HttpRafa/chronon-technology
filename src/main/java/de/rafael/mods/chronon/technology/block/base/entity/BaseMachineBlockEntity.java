@@ -23,7 +23,7 @@
  */
 package de.rafael.mods.chronon.technology.block.base.entity;
 
-import de.rafael.mods.chronon.technology.block.base.interfaces.Tickable;
+import de.rafael.mods.chronon.technology.block.base.interfaces.TickExecutor;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 08/08/2023
  */
 
-public abstract class BaseMachineBlockEntity extends BlockEntity implements Tickable, WorldlyContainer, ExtendedScreenHandlerFactory {
+public abstract class BaseMachineBlockEntity extends BlockEntity implements TickExecutor, WorldlyContainer, ExtendedScreenHandlerFactory {
 
     protected final NonNullList<ItemStack> inventory;
     protected final Component displayName;

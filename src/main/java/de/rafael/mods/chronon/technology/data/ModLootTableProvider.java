@@ -23,9 +23,20 @@
  */
 package de.rafael.mods.chronon.technology.data;
 
+import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
+import de.rafael.mods.chronon.technology.block.base.interfaces.BlockEntityHolder;
 import de.rafael.mods.chronon.technology.registry.ModBlocks;
+import de.rafael.mods.chronon.technology.util.values.NbtKey;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 /**
  * @author Rafael K.
@@ -41,7 +52,18 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         /* Chronon Collector */
-        dropSelf(ModBlocks.CHRONON_COLLECTOR);
+        dropWithData(ModBlocks.CHRONON_COLLECTOR);
+    }
+
+    public void dropWithData(Block block) {
+        if(block instanceof BlockEntityHolder<?> holder) {
+            CopyNbtFunction.Builder builder = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
+            BlockEntity dummyEntity = holder.createDummyEntity();
+            if(dummyEntity instanceof AttributeHolder attributeHolder) {
+                attributeHolder.getNbtKeys().forEach(nbtKey -> builder.copy(nbtKey.getKey(), NbtKey.BLOCK_ENTITY_TAG + "." + nbtKey.getKey()));
+            }
+            add(block, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1f)).add(LootItem.lootTableItem(block).apply(builder))));
+        }
     }
 
 }

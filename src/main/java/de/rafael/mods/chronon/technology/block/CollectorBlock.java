@@ -39,14 +39,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Rafael K.
  * @since 08/08/2023
  */
 
-public class CollectorBlock extends BaseMachineBlock {
+public class CollectorBlock extends BaseMachineBlock<CollectorBlockEntity> {
 
     public static final List<BlockPos> OFFSETS = BlockPos.betweenClosedStream(-2, 0, -2, 2, 1, 2).filter((blockPos) -> Math.abs(blockPos.getX()) == 2 || Math.abs(blockPos.getZ()) == 2).map(BlockPos::immutable).toList();
     public static final int PARTICLE_POSSIBILITY = 128;
@@ -80,9 +79,8 @@ public class CollectorBlock extends BaseMachineBlock {
     }
 
     /* Block entity */
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public CollectorBlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new CollectorBlockEntity(blockPos, blockState);
     }
 
