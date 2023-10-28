@@ -23,7 +23,7 @@
  */
 package de.rafael.mods.chronon.technology.item;
 
-import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
+import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.entity.AcceleratorEntity;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.registry.ModItems;
@@ -51,7 +51,7 @@ import org.jetbrains.annotations.NotNull;
 public class AcceleratorItem extends ChrononStorageItem {
 
     public AcceleratorItem() {
-        super(AcceleratorConfig.storageSize * 2, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
+        super(ChrononTech.CONFIG.get().accelerator.storageSize * 2, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     }
 
     public static @NotNull ItemStack fullyChargedStack() {
@@ -63,6 +63,8 @@ public class AcceleratorItem extends ChrononStorageItem {
 
     @Override
     public @NotNull InteractionResult useOn(@NotNull UseOnContext useOnContext) {
+        var config = ChrononTech.CONFIG.get();
+
         Player player = useOnContext.getPlayer();
         assert player != null;
         Level level = useOnContext.getLevel();
@@ -74,14 +76,14 @@ public class AcceleratorItem extends ChrononStorageItem {
         // Check if accelerator already exists
         level.getEntitiesOfClass(AcceleratorEntity.class, new AABB(blockPos)).stream().findFirst().ifPresentOrElse(accelerator -> {
             int rate = accelerator.getTickRate();
-            long ticks = AcceleratorConfig.boostTime - accelerator.getTicksLeft();
+            long ticks = config.accelerator.boostTime - accelerator.getTicksLeft();
 
             // Check if rate is at maximum
-            if(rate >= Math.pow(2, AcceleratorConfig.maxTickRate)) return;
+            if(rate >= Math.pow(2, config.accelerator.maxTickRate)) return;
 
             rate = rate * 2; // Increment current rate
             ticks = ticks / 2; // Add additional ticks to the old time
-            long cost = player.isCreative() ? 0 : (rate / 2) * ((accelerator.getTicksLeft() + ticks) / AcceleratorConfig.efficiency);
+            long cost = player.isCreative() ? 0 : (rate / 2) * ((accelerator.getTicksLeft() + ticks) / config.accelerator.efficiency);
             if(cost > getChronons(useOnContext.getItemInHand())) { playMissingSound(player); return; }
 
             accelerator.setTickRate(rate);
@@ -90,11 +92,11 @@ public class AcceleratorItem extends ChrononStorageItem {
             removeChronons(useOnContext.getItemInHand(), cost);
             playSound(level, blockPos, rate);
         }, () -> {
-            long cost = player.isCreative() ? 0 : (AcceleratorConfig.boostTime / AcceleratorConfig.efficiency);
+            long cost = player.isCreative() ? 0 : (config.accelerator.boostTime / config.accelerator.efficiency);
             if(cost > getChronons(useOnContext.getItemInHand())) { playMissingSound(player); return; }
 
             AcceleratorEntity accelerator = new AcceleratorEntity(level, blockPos);
-            accelerator.setTicksLeft(AcceleratorConfig.boostTime);
+            accelerator.setTicksLeft(config.accelerator.boostTime);
             accelerator.setTickRate(2);
             level.addFreshEntity(accelerator);
 

@@ -26,7 +26,6 @@ package de.rafael.mods.chronon.technology.block.entity;
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
 import de.rafael.mods.chronon.technology.block.base.entity.BaseMachineBlockEntity;
-import de.rafael.mods.chronon.technology.config.AcceleratorConfig;
 import de.rafael.mods.chronon.technology.item.PlatingItem;
 import de.rafael.mods.chronon.technology.item.abstracted.ChrononStorageItem;
 import de.rafael.mods.chronon.technology.network.ModPackets;
@@ -65,7 +64,7 @@ import org.jetbrains.annotations.Nullable;
 @Getter
 public class CollectorBlockEntity extends BaseMachineBlockEntity implements AttributeHolder {
 
-    public static final long MAX_STORAGE_SIZE = AcceleratorConfig.storageSize * 2;
+    public static final long MAX_STORAGE_SIZE = ChrononTech.CONFIG.get().accelerator.storageSize * 2;
 
     private final ContainerData containerData;
 

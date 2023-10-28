@@ -15,7 +15,6 @@ base {
 repositories {
 	maven { url "https://maven.terraformersmc.com/" }
 	maven { url "https://maven.shedaniel.me" }
-	maven { url "https://maven.resourcefulbees.com/repository/maven-public/" }
 }
 
 loom {
@@ -50,15 +49,22 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Dependencies
-	// TODO: modApi "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-${project.minecraft_version}:${project.resourcefulconfig_version}"
-	modApi "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.20:${project.resourcefulconfig_version}"
+	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 
 	// Extra dependencies
-	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
-	modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
+	modApi("com.terraformersmc:modmenu:${project.modmenu_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	modCompileOnly("dev.emi:emi-fabric:${project.emi_version}:api") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 
 	// Runtime
-	modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+	modLocalRuntime("dev.emi:emi-fabric:${project.emi_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 
 	compileOnly "org.projectlombok:lombok:${project.lombok_version}"
 	annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
@@ -121,7 +127,7 @@ modrinth {
 	gameVersions = ["${minecraft_version}"]
 	dependencies {
 		required.project "fabric-api"
-		required.project "resourceful-config"
+		required.project "cloth-config"
 	}
 
 	syncBodyFrom = rootProject.file("README.md").text;

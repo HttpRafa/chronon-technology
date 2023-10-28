@@ -23,8 +23,8 @@
  */
 package de.rafael.mods.chronon.technology.item.abstracted;
 
+import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
-import de.rafael.mods.chronon.technology.config.GuiConfig;
 import de.rafael.mods.chronon.technology.util.helper.TimeHelper;
 import de.rafael.mods.chronon.technology.util.values.Constants;
 import de.rafael.mods.chronon.technology.util.values.NbtKey;
@@ -70,7 +70,7 @@ public class ChrononStorageItem extends ItemWithDescription implements Attribute
 
     @Override
     public int getBarColor(ItemStack itemStack) {
-        return GuiConfig.chrononColor;
+        return ChrononTech.CONFIG.get().gui.chrononColor;
     }
 
     @Override

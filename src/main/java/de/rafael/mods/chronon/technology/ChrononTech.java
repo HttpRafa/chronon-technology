@@ -23,9 +23,11 @@
  */
 package de.rafael.mods.chronon.technology;
 
-import com.teamresourceful.resourcefulconfig.common.config.Configurator;
 import de.rafael.mods.chronon.technology.config.ChrononTechConfig;
 import de.rafael.mods.chronon.technology.registry.*;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigHolder;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +41,12 @@ public class ChrononTech implements ModInitializer {
 
     public static final String MOD_ID = "chronontech";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final Configurator CONFIGURATOR = new Configurator();
+    public static ConfigHolder<ChrononTechConfig> CONFIG;
 
     @Override
     public void onInitialize() {
-        CONFIGURATOR.registerConfig(ChrononTechConfig.class);
+        AutoConfig.register(ChrononTechConfig.class, Toml4jConfigSerializer::new);
+        CONFIG = AutoConfig.getConfigHolder(ChrononTechConfig.class);
 
         ModBlocks.register();
         ModItems.register();

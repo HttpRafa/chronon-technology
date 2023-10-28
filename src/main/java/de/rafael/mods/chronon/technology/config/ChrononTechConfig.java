@@ -23,21 +23,40 @@
  */
 package de.rafael.mods.chronon.technology.config;
 
-import com.teamresourceful.resourcefulconfig.common.annotations.Config;
-import com.teamresourceful.resourcefulconfig.common.annotations.InlineCategory;
+import de.rafael.mods.chronon.technology.ChrononTech;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 /**
  * @author Rafael K.
  * @since 14/08/2023
  */
 
-@Config("chronon_technology")
-public final class ChrononTechConfig {
+@Config(name = ChrononTech.MOD_ID)
+public final class ChrononTechConfig implements ConfigData {
 
-    @InlineCategory
-    public static GuiConfig guiConfig;
+    @ConfigEntry.Gui.CollapsibleObject
+    public Accelerator accelerator = new Accelerator();
 
-    @InlineCategory
-    public static AcceleratorConfig acceleratorConfig;
+    @ConfigEntry.Gui.CollapsibleObject
+    public Gui gui = new Gui();
+
+    public static class Accelerator {
+
+        public int maxTickRate = 8; // 2^8
+
+        public long efficiency = 18;
+
+        public long boostTime = 20 * 25; // 25 seconds
+        public long storageSize = 86400;
+
+    }
+
+    public static class Gui {
+
+        public int chrononColor = 0x0D7BCB;
+
+    }
 
 }
