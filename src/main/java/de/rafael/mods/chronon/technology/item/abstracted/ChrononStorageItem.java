@@ -23,12 +23,11 @@
  */
 package de.rafael.mods.chronon.technology.item.abstracted;
 
+import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.attribute.AttributeHolder;
-import de.rafael.mods.chronon.technology.config.GuiConfig;
 import de.rafael.mods.chronon.technology.util.helper.TimeHelper;
 import de.rafael.mods.chronon.technology.util.values.Constants;
 import de.rafael.mods.chronon.technology.util.values.NbtKey;
-import java.util.List;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -37,6 +36,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * @author Rafael K.
