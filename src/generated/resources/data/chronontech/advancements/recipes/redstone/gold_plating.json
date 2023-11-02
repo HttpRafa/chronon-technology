@@ -46,10 +46,10 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_iron_bars",
       "has_gold_ingot",
-      "has_iron_plating",
-      "has_the_recipe"
+      "has_iron_plating"
     ]
   ],
   "rewards": {

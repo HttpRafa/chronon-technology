@@ -26,13 +26,17 @@ package de.rafael.mods.chronon.technology.data;
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.registry.ModBlocks;
 import de.rafael.mods.chronon.technology.registry.ModItems;
+
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,12 +46,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
-    public ModRecipeProvider(PackOutput pOutput) {
-        super(pOutput);
+    public ModRecipeProvider(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(p_248933_, lookupProvider);
+    }
+
+    protected static void netheriteSmithing(@NotNull RecipeOutput recipeOutput, @NotNull Item pIngredientItem, @NotNull RecipeCategory pCategory, Item pResultItem) {
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(pIngredientItem), Ingredient.of(Items.NETHERITE_INGOT), pCategory, pResultItem).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(recipeOutput, ChrononTech.MOD_ID + ":" + getItemName(pResultItem) + "_smithing");
     }
 
     @Override
-    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> writer) {
+    protected void buildRecipes(@NotNull RecipeOutput writer) {
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.CHRONON_CORE.get())
                 .group("chronon")
                 .pattern("OSO").pattern("SES").pattern("OSO")
@@ -125,10 +133,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModItems.GOLD_PLATING.get()), has(ModItems.GOLD_PLATING.get()))
                 .save(writer);
         netheriteSmithing(writer, ModItems.DIAMOND_PLATING.get(), RecipeCategory.REDSTONE, ModItems.NETHERITE_PLATING.get());
-    }
-
-    protected static void netheriteSmithing(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @NotNull Item pIngredientItem, @NotNull RecipeCategory pCategory, Item pResultItem) {
-        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(pIngredientItem), Ingredient.of(Items.NETHERITE_INGOT), pCategory, pResultItem).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(pFinishedRecipeConsumer, ChrononTech.MOD_ID + ":" + getItemName(pResultItem) + "_smithing");
     }
 
 }

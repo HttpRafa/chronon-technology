@@ -41,7 +41,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -73,7 +73,7 @@ public class CollectorScreenHandler extends BaseContainerMenu {
         addPlayerInventory(inventory, 162, 104);
         addDataSlots(containerData);
 
-        this.entity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+        this.entity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(handler -> {
             this.addSlot(new TypeLockedSlot(handler, CollectorBlockEntity.Data.PLATING_SLOT, 80, 52, PlatingItem.class));
             this.addSlot(new TypeLockedSlot(handler, CollectorBlockEntity.Data.STORAGE_SLOT, 152, 72, AcceleratorItem.class));
         });

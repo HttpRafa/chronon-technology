@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.NetworkEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -56,8 +56,7 @@ public class PacketPlayInChrononSync {
         byteBuf.writeLong(this.chronons);
     }
 
-    public void handle(@NotNull Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public void handle(NetworkEvent.@NotNull Context context) {
         context.enqueueWork(() -> {
             assert Minecraft.getInstance().level != null;
             if(Minecraft.getInstance().level.getBlockEntity(this.blockPos) instanceof CollectorBlockEntity entity) {

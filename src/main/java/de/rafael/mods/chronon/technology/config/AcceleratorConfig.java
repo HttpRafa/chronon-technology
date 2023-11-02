@@ -23,44 +23,19 @@
  */
 package de.rafael.mods.chronon.technology.config;
 
-import com.teamresourceful.resourcefulconfig.common.annotations.Category;
-import com.teamresourceful.resourcefulconfig.common.annotations.ConfigEntry;
-import com.teamresourceful.resourcefulconfig.common.config.EntryType;
-
 /**
  * @author Rafael K.
  * @since 14/08/2023
  */
 
-@Category(id = "accelerator", translation = "text.resourcefulconfig.chronontech.option.accelerator")
 public final class AcceleratorConfig {
 
-    @ConfigEntry(
-            id = "maxTickRate",
-            type = EntryType.INTEGER,
-            translation = "text.resourcefulconfig.chronontech.option.accelerator.maxTickRate"
-    )
     public static int maxTickRate = 8; // 2^8
 
-    @ConfigEntry(
-            id = "efficiency",
-            type = EntryType.LONG,
-            translation = "text.resourcefulconfig.chronontech.option.accelerator.efficiency"
-    )
     public static long efficiency = 18;
 
-    @ConfigEntry(
-            id = "boostTime",
-            type = EntryType.LONG,
-            translation = "text.resourcefulconfig.chronontech.option.accelerator.boostTime"
-    )
     public static long boostTime = 20 * 25; // 25 seconds
 
-    @ConfigEntry(
-            id = "storageSize",
-            type = EntryType.LONG,
-            translation = "text.resourcefulconfig.chronontech.option.accelerator.storageSize"
-    )
     public static long storageSize = 86400;
 
 }

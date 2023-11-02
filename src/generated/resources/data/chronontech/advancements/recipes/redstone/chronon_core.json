@@ -46,10 +46,10 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_obsidian",
       "has_echo_shard",
-      "has_ender_eye",
-      "has_the_recipe"
+      "has_ender_eye"
     ]
   ],
   "rewards": {

@@ -25,15 +25,14 @@ package de.rafael.mods.chronon.technology.registry;
 
 import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.screen.block.CollectorScreenHandler;
-import java.awt.*;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.network.IContainerFactory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.network.IContainerFactory;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 /**
  * @author Rafael K.
@@ -48,7 +47,7 @@ public class ModScreenHandlers {
             registerMenuType("chronon_collector", CollectorScreenHandler::new);
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String id, IContainerFactory<T> factory) {
-        return MENUS.register(id, () -> IForgeMenuType.create(factory));
+        return MENUS.register(id, () -> IMenuTypeExtension.create(factory));
     }
 
     public static void register(IEventBus eventBus) {

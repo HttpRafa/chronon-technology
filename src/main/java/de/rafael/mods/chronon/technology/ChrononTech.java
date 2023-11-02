@@ -24,16 +24,15 @@
 package de.rafael.mods.chronon.technology;
 
 import com.mojang.logging.LogUtils;
-import com.teamresourceful.resourcefulconfig.common.config.Configurator;
 import de.rafael.mods.chronon.technology.config.ChrononTechConfig;
 import de.rafael.mods.chronon.technology.registry.*;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -47,11 +46,8 @@ public class ChrononTech {
 
     public static final String MOD_ID = "chronontech";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final Configurator CONFIGURATOR = new Configurator();
 
     public ChrononTech() {
-        CONFIGURATOR.registerConfig(ChrononTechConfig.class);
-
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Registry
@@ -64,7 +60,7 @@ public class ChrononTech {
 
         // Listeners
         eventBus.addListener(this::commonSetup);
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final @NotNull FMLCommonSetupEvent event) {

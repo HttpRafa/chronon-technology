@@ -27,10 +27,10 @@ import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.client.registry.ModEntityRenderers;
 import de.rafael.mods.chronon.technology.client.registry.ModScreens;
 import de.rafael.mods.chronon.technology.config.forge.ForgeMenuConfig;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 /**
  * @author Rafael K.

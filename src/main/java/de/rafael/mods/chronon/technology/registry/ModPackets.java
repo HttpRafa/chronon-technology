@@ -27,9 +27,9 @@ import de.rafael.mods.chronon.technology.ChrononTech;
 import de.rafael.mods.chronon.technology.client.network.PacketPlayInChrononSync;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.NetworkRegistry;
+import net.neoforged.neoforge.network.PlayNetworkDirection;
+import net.neoforged.neoforge.network.simple.SimpleChannel;
 
 /**
  * @author Rafael K.
@@ -51,7 +51,7 @@ public class ModPackets {
                 .serverAcceptedVersions(ModPackets::shouldAccept)
                 .simpleChannel();
 
-        CHANNEL.messageBuilder(PacketPlayInChrononSync.class, ID.getAndIncrement(), NetworkDirection.PLAY_TO_CLIENT)
+        CHANNEL.messageBuilder(PacketPlayInChrononSync.class, ID.getAndIncrement(), PlayNetworkDirection.PLAY_TO_CLIENT)
                 .decoder(PacketPlayInChrononSync::new)
                 .encoder(PacketPlayInChrononSync::fillBuffer)
                 .consumerMainThread(PacketPlayInChrononSync::handle)

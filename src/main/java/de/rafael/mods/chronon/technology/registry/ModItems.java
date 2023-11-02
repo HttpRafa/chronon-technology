@@ -30,10 +30,10 @@ import de.rafael.mods.chronon.technology.item.abstracted.ItemWithDescription;
 import de.rafael.mods.chronon.technology.types.PlatingType;
 import de.rafael.mods.chronon.technology.util.values.Constants;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 /**
  * @author Rafael K.

@@ -94,14 +94,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_obsidian",
       "has_observer",
       "has_comparator",
       "has_repeater",
       "has_iron_block",
       "has_redstone_block",
-      "has_chronon_core",
-      "has_the_recipe"
+      "has_chronon_core"
     ]
   ],
   "rewards": {

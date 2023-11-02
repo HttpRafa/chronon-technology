@@ -82,13 +82,13 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_obsidian",
       "has_tinted_glass",
       "has_comparator",
       "has_redstone_block",
       "has_repeater",
-      "has_chronon_core",
-      "has_the_recipe"
+      "has_chronon_core"
     ]
   ],
   "rewards": {
