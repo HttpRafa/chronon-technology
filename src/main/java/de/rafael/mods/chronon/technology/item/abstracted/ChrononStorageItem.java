@@ -70,7 +70,7 @@ public class ChrononStorageItem extends ItemWithDescription implements Attribute
 
     @Override
     public int getBarColor(@NotNull ItemStack itemStack) {
-        return GuiConfig.chrononColor;
+        return ChrononTech.CONFIG.get().gui.chrononColor;
     }
 
     @Override
